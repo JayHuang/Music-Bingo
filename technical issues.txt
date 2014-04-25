@@ -1,0 +1,15 @@
+Technical issues:
+
+AJAX request for JSON data errors (file:/// requests are blocked, need a web server)
+Wrap link listing in li not working (Element has to be attached to the DOM)
+'Display: none' on hover causes flicker (Element is no longer in render tree, so it loses hover then gets it again)
+Splitting elements across columns (Use CSS3 column-count)
+Get elements in columns to fill up as much space as possible (dynamic JS)
+Can't revert element resize on hover (Need separate for each loop to store original dimensions, or pollute global variable)
+Set last clicked song as played
+Artist name from JSON returns as undefined (it was " artist" in JSON, not "artist")
+Hovered element + resize (to small, then back again) causes the hovered element to be smaller - UNRESOLVED
+Hover element expansion causes re-flow for columns (elements move spill over to next column) - UNRESOLVED
+When a song could not be found, the error doesn't disappear once a different song is picked
+Queued song doesn't jump to beginning when last song in list is played
+Reset doesn't properly reset all play counters
