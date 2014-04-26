@@ -30,10 +30,10 @@ $(function() {
     $('a.song').parent().each(function() {
       $(this).hover(
         function() {
-          $(this).stop().animate({height: window.musicbingo.origheight * 2}, 0);
+          $(this).stop().animate({height: window.musicbingo.origheight * 2}, 300);
           $(this).children(':first').css({"overflow":"visible", "white-space":"normal"});
         }, function() {
-          $(this).stop().animate({width: window.musicbingo.origwidth, height: window.musicbingo.origheight}, 0);
+          $(this).stop().animate({width: window.musicbingo.origwidth, height: window.musicbingo.origheight}, 300);
           $(this).children(':first').css({"overflow":"hidden", "white-space":"nowrap"});
       });
       // $(this).clone(true).attr({"class":"song-detail"}).css({"display":"block", "z-index": 1}).appendTo($ol).wrap("<li></li>");

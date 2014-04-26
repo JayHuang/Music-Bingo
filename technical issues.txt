@@ -1,5 +1,6 @@
 Technical issues:
 
+Jay:
 AJAX request for JSON data errors (file:/// requests are blocked, need a web server)
 Wrap link listing in li not working (Element has to be attached to the DOM)
 'Display: none' on hover causes flicker (Element is no longer in render tree, so it loses hover then gets it again)
