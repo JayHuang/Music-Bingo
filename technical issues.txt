@@ -15,3 +15,9 @@ When a song could not be found, the error doesn't disappear once a different son
 Queued song doesn't jump to beginning when last song in list is played
 Reset doesn't properly reset all play counters
 Different margins after hover expansion - UNRESOLVED
+
+Performance tweaks:
+Hover on scroll disabled - *****
+Selector optimizations - ***
+Batch adds to DOM - ****
+Grouped DOM reads/writes - **

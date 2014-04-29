@@ -4,7 +4,8 @@ $(function() {
   updateSongWidth();
 
   var body = document.body, timer;
-
+  var player = document.getElementById('player');
+  
   window.addEventListener('scroll', function() {
     clearTimeout(timer);
     if(!body.classList.contains('disable-hover'))
@@ -18,16 +19,16 @@ $(function() {
   // If the user scrolls away from the top, keep the player in view
   $(window).scroll(function() {
     if ($(window).scrollTop() >= 70)
-       $('#player').addClass('fixedplayer');
+      $(player).addClass('fixedplayer');
     else 
-       $('#player').removeClass('fixedplayer');
+      $(player).removeClass('fixedplayer');
   });
 
   // On window resize event, update the width of each song listing
   $(window).resize(function() {
     waitForFinalEvent(function() {
       updateSongWidth();
-    }, 100, "8239839");
+    }, 30, "8239839");
   });
 
   // Create songs listing
@@ -51,12 +52,12 @@ $(function() {
       link.clone(true).appendTo($ol).wrap("<li></li>");
       link.clone(true).appendTo($ol).wrap("<li></li>");
     });
-    $ol.appendTo("div#listing");
+    $ol.appendTo("#listing");
     window.musicbingo = {
-      "origwidth" : $('a.song').parent().width(),
-      "origheight" : $('a.song').parent().height()
+      "origwidth" : $("ol").find("li").width(),
+      "origheight" : $("ol").find("li").height()
     }
-    $('a.song').parent().each(function() {
+    $("ol").find("li").each(function() {
       $(this).hover(
         function() {
           $(this).stop().animate({height: window.musicbingo.origheight * 2}, 200);
@@ -67,13 +68,13 @@ $(function() {
       });
       // $(this).clone(true).attr({"class":"song-detail"}).css({"display":"block", "z-index": 1}).appendTo($ol).wrap("<li></li>");
     });
-    $ol.appendTo("div#listing");
+    $ol.appendTo("#listing");
   }
 
   // If reset is clicked, reset all songs
   $('#resetsongs').on('click', function(e) {
     e.preventDefault();
-    $('ol li').each(function(){
+    $("ol").find("li").each(function(){
       $(this).removeClass('played playing queued').attr('data-playcount', 0);
     });
   });
@@ -83,8 +84,8 @@ $(function() {
     var container;
     var i = 0;
     var numCols = 5;
-    var colCount = Math.ceil($('ol li').length / numCols);
-      $('ol li').each(function () {
+    var colCount = Math.ceil($("ol").find("li").length / numCols);
+      $("ol").find("li").each(function () {
         if (i % colCount === 0)
             container = $('<div class="col"></div>').appendTo("ol");
 
@@ -96,12 +97,12 @@ $(function() {
   // Make the items more packed on window resize
   function updateSongWidth(){
     var w = $('ol').width();
-    var margins = parseInt($('ol li').css('marginLeft')) + parseInt($('ol li').css('marginRight'));
-    $('a.song').each(function() {
-      $(this).parent().width(w/5-margins);
+    var margins = parseInt($("ol").find("li").css('marginLeft')) + parseInt($("ol").find("li").css('marginRight'));
+    $("ol").find("li").each(function() {
+      $(this).width(w/5-margins);
     });
-    window.musicbingo.origwidth = $('a.song').parent().width();
-    window.musicbingo.origheight = $('a.song').parent().height();
+    window.musicbingo.origwidth = $("ol").find("li").width();
+    window.musicbingo.origheight = $("ol").find("li").height();
   }
 
   var waitForFinalEvent = (function () {
@@ -120,9 +121,9 @@ $(function() {
   // Setup the player to autoplay the next track
   var a = audiojs.createAll({
     trackEnded: function() {
-      var $prev = $('ol li.playing');
+      var $prev = $('.playing');
       var next = $prev.nextAll('li').not('.played').first();
-      if (!next.length) next = $('ol li').siblings().not('.played').first();
+      if (!next.length) next = $("ol").find("li").siblings().not('.played').first();
       var playcount = $prev.children('a.song').attr('data-playcount');
       $prev.children('a.song').attr('data-playcount', ++playcount);
       $prev.removeClass('playing').addClass('played');
@@ -136,14 +137,14 @@ $(function() {
   // Load in the first track
   var audio = a[0];
   first = $('ol a').attr('data-src');
-  $('ol li').first().addClass('playing');
+  $("ol").find("li").first().addClass('playing');
   setupQueued();
   audio.load(first);
 
   // Load in a track on click
-  $('ol li').click(function(e) {
+  $("ol").find("li").click(function(e) {
     e.preventDefault();
-    var $prev = $('ol li.playing');
+    var $prev = $('.playing');
     var playcount = $prev.children('a.song').attr('data-playcount');
     $prev.children('a.song').attr('data-playcount', ++playcount);
     $prev.removeClass('playing').addClass('played');
@@ -156,11 +157,11 @@ $(function() {
   });
 
   function setupQueued(){
-    $('ol li.queued').removeClass('queued');
-    if($('ol li.playing').nextAll('li').not('.played').length == 0)
-      $('ol li.playing').siblings().not('.played').first().addClass('queued');
+    $('.queued').removeClass('queued');
+    if($('.playing').nextAll('li').not('.played').length == 0)
+      $('.playing').siblings().not('.played').first().addClass('queued');
     else
-      $('ol li.playing').nextAll('li').not('.played').first().addClass('queued');
+      $('.playing').nextAll('li').not('.played').first().addClass('queued');
   }
 
   // Keyboard shortcuts
@@ -168,13 +169,13 @@ $(function() {
     var unicode = e.charCode ? e.charCode : e.keyCode;
        // right arrow
        if (unicode == 39) {
-        var next = $('li.playing').next();
-        if (!next.length) next = $('ol li').first();
+        var next = $('.playing').next();
+        if (!next.length) next = $("ol").find("li").first();
         next.click();
       // back arrow
     } else if (unicode == 37) {
-      var prev = $('li.playing').prev();
-      if (!prev.length) prev = $('ol li').last();
+      var prev = $('.playing').prev();
+      if (!prev.length) prev = $("ol").find("li").last();
       prev.click();
       // spacebar
     } else if (unicode == 32) {
