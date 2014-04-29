@@ -1,9 +1,20 @@
 $(function() {
   createListing();
-  expandSongWidth();
+  createColumns();
+  updateSongWidth();
+
+  // If the user scrolls away from the top, keep the player in view
+  $(window).scroll(function() {
+    if ($(window).scrollTop() >= 70)
+       $('#player').addClass('fixedplayer');
+    else 
+       $('#player').removeClass('fixedplayer');
+  });
+
+  // On window resize event, update the width of each song listing
   $(window).resize(function() {
     waitForFinalEvent(function() {
-      expandSongWidth();
+      updateSongWidth();
     }, 100, "8239839");
   });
 
@@ -21,8 +32,14 @@ $(function() {
       .attr('data-songid', song.id)
       .appendTo($ol)
       .wrap("<li></li>");
+
+      // THIS CODE IS TO TEST WITH SCROLLBARS, COMMENT IT OUT AS YOU WISH
+      link.clone(true).appendTo($ol).wrap("<li></li>");
+      link.clone(true).appendTo($ol).wrap("<li></li>");
+      link.clone(true).appendTo($ol).wrap("<li></li>");
+      link.clone(true).appendTo($ol).wrap("<li></li>");
     });
-    $ol.appendTo("div#player");
+    $ol.appendTo("div#listing");
     window.musicbingo = {
       "origwidth" : $('a.song').parent().width(),
       "origheight" : $('a.song').parent().height()
@@ -38,9 +55,10 @@ $(function() {
       });
       // $(this).clone(true).attr({"class":"song-detail"}).css({"display":"block", "z-index": 1}).appendTo($ol).wrap("<li></li>");
     });
-    $ol.appendTo("div#player");
+    $ol.appendTo("div#listing");
   }
 
+  // If reset is clicked, reset all songs
   $('#resetsongs').on('click', function(e) {
     e.preventDefault();
     $('ol li').each(function(){
@@ -48,8 +66,23 @@ $(function() {
     });
   });
 
+  // Instead of using CSS3 column count, use CSS3 columns
+  function createColumns() {
+    var container;
+    var i = 0;
+    var numCols = 5;
+    var colCount = Math.ceil($('ol li').length / numCols);
+      $('ol li').each(function () {
+        if (i % colCount === 0)
+            container = $('<div class="col"></div>').appendTo("ol");
+
+        $(this).appendTo(container);
+        i++;
+    });
+  }
+
   // Make the items more packed on window resize
-  function expandSongWidth(){
+  function updateSongWidth(){
     var w = $('ol').width();
     var margins = parseInt($('ol li').css('marginLeft')) + parseInt($('ol li').css('marginRight'));
     $('a.song').each(function() {
@@ -79,7 +112,7 @@ $(function() {
       var next = $prev.nextAll('li').not('.played').first();
       var playcount = $prev.children('a.song').attr('data-playcount');
       $prev.children('a.song').attr('data-playcount', ++playcount);
-      if (!next.length) next = $('ol li').first();
+      if (!next.length) next = $('ol li').siblings().not('.played').first();
       $prev.removeClass('playing').addClass('played');
       next.addClass('playing');
       setupQueued();

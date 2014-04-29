@@ -1,16 +1,29 @@
 body {
-  color: #666;
   font-family: sans-serif;
   line-height: 1.4;
 }
 
+.fixedplayer {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  padding-bottom: 5px;
+  border-bottom: 1px black solid;
+}
+.fixedplayer h1 {
+  display: none;
+}
+
 a {
-  color: #888;
   text-decoration: none;
 }
 
 #wrapper {
   width: 100%;
+  min-width: 500px;
+  margin: 0 auto;
 }
 @media screen and (max-device-width: 480px) {
   #wrapper {
@@ -19,13 +32,8 @@ a {
   }
 }
 
-#player {
-  margin: 0 auto;
-  min-width: 500px;
-}
 #player h1 {
   text-align: center;
-  color: #444;
   font-size: 1.2em;
   padding: 5px 2px 10px;
   margin: 0px;
@@ -43,20 +51,22 @@ a {
   cursor: pointer;
   width: 50px;
   text-align: center;
-  background-color: #F78181;
+  background-color: #f78181;
 }
 
 ol {
   padding: 0px;
   list-style: decimal-leading-zero inside;
-  color: #ccc;
   font-size: 0.9em;
-  -moz-column-count: 5;
-  -webkit-column-count: 5;
-  column-count: 5;
+}
+ol .col {
+  max-width: 20%;
+  display: inline-block;
+  vertical-align: top;
 }
 ol li {
-  background-color: #EEE;
+  color: #888888;
+  background-color: #eeeeee;
   width: 200px;
   height: 40px;
   display: inline-block;
@@ -70,29 +80,27 @@ ol li a {
   overflow: hidden;
   white-space: nowrap;
 }
-
-li a {
-  color: #000;
+ol li.played {
+  color: #666666;
+  background-color: #cccccc;
 }
-li.played {
-  background-color: #CCC;
+ol li:hover {
+  color: black;
+  background-color: #cccccc;
 }
-li.playing {
-  color: #AAA;
-  background-color: #58FAAC;
+ol li.playing {
+  color: black;
+  background-color: #58faac;
 }
-li.queued {
-  background-color: #F3F781;
-}
-li:hover {
-  background-color: #CCC;
+ol li.queued {
+  background-color: #f3f781;
 }
 
 #shortcuts {
   position: fixed;
   bottom: 0px;
   width: 100%;
-  color: #666;
+  color: #666666;
   font-size: 0.9em;
   margin: 60px 0px 0px;
   padding: 20px 20px 15px;

@@ -1,8 +1,19 @@
 @import "compass";
+
+$black: #000;
+$white: #FFF;
+$pink: #F78181;
+$yellow: #F3F781;
+$green: #58FAAC;
+$dark-grey: #666; 
+$grey: #888;
+$lighter-grey: #CCC;
+$lightest-grey: #EEE;
+
 @mixin hide-text{
-    font: 0/0 a;
-    text-shadow: none;
-    color: transparent;
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
 }
 
 @mixin breakpoint($bp) {
@@ -18,18 +29,31 @@
 }
 
 body {
-  color: #666;
   font-family: sans-serif;
   line-height: 1.4;
 }
 
+.fixedplayer {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $white;
+  padding-bottom: 5px;
+  border-bottom: 1px $black solid;
+  h1 {
+    display: none;
+  }
+}
+
 a {
-  color: #888;
   text-decoration: none;
 }
 
 #wrapper {
   width: 100%;
+  min-width: 500px;
+  margin: 0 auto;
   @media screen and (max-device-width: 480px) {
     position: relative;
     left: -3%;
@@ -37,11 +61,8 @@ a {
 }
 
 #player { 
-  margin: 0 auto;
-  min-width: 500px;
   h1 {
     text-align: center;
-    color: #444;
     font-size: 1.2em;
     padding: 5px 2px 10px;
     margin: 0px;
@@ -54,52 +75,53 @@ a {
   @include box-shadow(none);
 }
 
-#resetsongs { 
+#resetsongs {
   cursor: pointer;
   width: 50px;
   text-align: center;
-  background-color: #F78181;
+  background-color: $pink;
 }
 
 ol {
   padding: 0px;
   list-style: decimal-leading-zero inside;
-  color: #ccc;
   font-size: 0.9em;
-  -moz-column-count: 5;
-  -webkit-column-count: 5;
-  column-count: 5;
 
+  .col {
+    max-width: 20%;
+    display: inline-block;
+    vertical-align: top;
+  }
+  
   li {
-    background-color: #EEE;
+    color: $grey;
+    background-color: $lightest-grey;
     width: 200px;
     height: 40px;
     display: inline-block;
     margin: 5px;
-
     a {
       padding: 10px 15px 0px;
       display: block;
       cursor: pointer;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
     }
-  }
-}
+    
+    &.played {
+      color: $dark-grey;
+      background-color: $lighter-grey;
+    }
 
-li {
-  a {
-    color: #000;
-  }
+    &:hover {
+      color: $black;
+      background-color: $lighter-grey;
+    }
 
-  &.played {
-    background-color: #CCC;
-  }
-
-  &.playing {
-    color: #AAA;
-    background-color: #58FAAC;
+    &.playing {
+      color: $black;
+      background-color: $green;
     // &:before {
     //   content: "\266B";
     //   width: 14px;
@@ -114,14 +136,11 @@ li {
     //   font-size: 13px;
     //   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
     // }
-  }
+    }
 
-  &.queued {
-    background-color: #F3F781;
-  }
-
-  &:hover {
-    background-color: #CCC;
+    &.queued {
+      background-color: $yellow;
+    }
   }
 }
 
@@ -129,7 +148,7 @@ li {
   position: fixed;
   bottom: 0px;
   width: 100%;
-  color: #666;
+  color: $dark-grey;
   font-size: 0.9em;
   margin: 60px 0px 0px;
   padding: 20px 20px 15px;
