@@ -29,6 +29,7 @@ $lightest-grey: #EEE;
 }
 
 body {
+  margin: 0;
   font-family: sans-serif;
   line-height: 1.4;
 }
@@ -92,7 +93,7 @@ ol {
     display: inline-block;
     vertical-align: top;
   }
-  
+
   li {
     color: $grey;
     background-color: $lightest-grey;
