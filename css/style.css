@@ -48,6 +48,11 @@ a {
   box-shadow: none;
 }
 
+.disable-hover,
+.disable-hover * {
+  pointer-events: none !important;
+}
+
 #resetsongs {
   cursor: pointer;
   width: 50px;

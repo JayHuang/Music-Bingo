@@ -3,6 +3,18 @@ $(function() {
   createColumns();
   updateSongWidth();
 
+  var body = document.body, timer;
+
+  window.addEventListener('scroll', function() {
+    clearTimeout(timer);
+    if(!body.classList.contains('disable-hover'))
+      body.classList.add('disable-hover');
+  
+    timer = setTimeout(function(){
+      body.classList.remove('disable-hover');
+    }, 100);
+  }, false);
+
   // If the user scrolls away from the top, keep the player in view
   $(window).scroll(function() {
     if ($(window).scrollTop() >= 70)
@@ -110,9 +122,9 @@ $(function() {
     trackEnded: function() {
       var $prev = $('ol li.playing');
       var next = $prev.nextAll('li').not('.played').first();
+      if (!next.length) next = $('ol li').siblings().not('.played').first();
       var playcount = $prev.children('a.song').attr('data-playcount');
       $prev.children('a.song').attr('data-playcount', ++playcount);
-      if (!next.length) next = $('ol li').siblings().not('.played').first();
       $prev.removeClass('playing').addClass('played');
       next.addClass('playing');
       setupQueued();
