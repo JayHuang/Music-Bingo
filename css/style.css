@@ -75,8 +75,8 @@ ol li {
   background-color: #eeeeee;
   width: 200px;
   height: 40px;
-  display: inline-block;
-  margin: 5px;
+  display: block;
+  margin: 5px 2px;
 }
 ol li a {
   padding: 10px 15px 0px;

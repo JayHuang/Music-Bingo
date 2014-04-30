@@ -9,12 +9,13 @@ Get elements in columns to fill up as much space as possible (dynamic JS)
 Can't revert element resize on hover (Need separate for each loop to store original dimensions, or pollute global variable)
 Set last clicked song as played
 Artist name from JSON returns as undefined (it was " artist" in JSON, not "artist")
-Hovered element + resize (to small, then back again) causes the hovered element to be smaller - UNRESOLVED
+Hovered element + resize (to small, then back again) causes the hovered element to be smaller
 Hover element expansion causes re-flow for columns (elements move spill over to next column) Use JS instead of CSS3 columns
-When a song could not be found, the error doesn't disappear once a different song is picked
+When a song could not be found, the error doesn't disappear once a different song is picked - UNRESOLVED
 Queued song doesn't jump to beginning when last song in list is played
 Reset doesn't properly reset all play counters
-Different margins after hover expansion - UNRESOLVED
+Different margins after hover expansion (change inline-block to block)
+Moving from CSS3 column to full JS column implementation caused bugs in playing/queued transition
 
 Performance tweaks:
 Hover on scroll disabled - *****
