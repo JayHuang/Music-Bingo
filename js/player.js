@@ -1,5 +1,5 @@
 $(function() {
-  createListing();
+  //createListing();
   createColumns();
   updateSongWidth();
 
@@ -31,6 +31,29 @@ $(function() {
     }, 30, "8239839");
   });
 
+  // If autoadd is clicked, add the first 75 songs in the songs folder into a songlist and then into the player
+  $('#autoadd').on('click', function(e){
+  	e.preventDefault();
+  	//Get array of files included in the songs folder
+  	var songsFolder = new Enumerator($('songs/').Files);
+  	//Create songlist
+  	window.songlist = {
+  		"songs": [
+		  	//Get the first 75 songs in songsFolder 
+		  	for(i = 0; i < 75; i++){
+		  		//get song name
+		  		songsFolder.item().name;
+		  		//get song artist
+		  		
+		  		//get song path
+		  		songsFolder.item().path;
+		  		//move to next song in songsFolder
+		  		songsFolder.moveNext();
+		  	}
+	  	]
+  	}
+  });
+
   // Create songs listing
   function createListing(){
     var path = 'songs/';
@@ -47,14 +70,14 @@ $(function() {
       .wrap("<li></li>");
 
       // THIS CODE IS TO TEST WITH SCROLLBARS, COMMENT IT OUT AS YOU WISH
+      /*link.clone(true).appendTo($ol).wrap("<li></li>");
       link.clone(true).appendTo($ol).wrap("<li></li>");
       link.clone(true).appendTo($ol).wrap("<li></li>");
-      link.clone(true).appendTo($ol).wrap("<li></li>");
-      link.clone(true).appendTo($ol).wrap("<li></li>");
+      link.clone(true).appendTo($ol).wrap("<li></li>");*/
     });
     $ol.appendTo("#listing");
     window.musicbingo = {
-      "origwidth" : $("ol").find("li").width(),
+      "origwidth" : $("ol").find("li").width(),f
       "origheight" : $("ol").find("li").height()
     }
     $("ol").find("li").each(function() {
@@ -78,6 +101,7 @@ $(function() {
       $(this).removeClass('played playing queued').attr('data-playcount', 0);
     });
   });
+
 
   // Instead of using CSS3 column count, use CSS3 columns
   function createColumns() {

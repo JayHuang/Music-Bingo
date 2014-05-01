@@ -60,6 +60,13 @@ a {
   background-color: #f78181;
 }
 
+#autoaddsongs {
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  background-color: #58faac;
+}
+
 ol {
   padding: 0px;
   list-style: decimal-leading-zero inside;
