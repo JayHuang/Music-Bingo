@@ -139,13 +139,28 @@ $(function() {
     updateQueued();
   });
 
+  $('div .play-pause').click(function(e) {
+	e.preventDefault();
+	playPressed();
+  });
+  
   function initializePlaying() {
-    $("ol").find("li").first().addClass('playing');
+	if(!document.getElementById("Random").checked)
+		$("ol").find("li").first().addClass('playing');
+	else{
+		var length = $('ol div li').not('.played').length;
+		var x1 = Math.floor((Math.random() * length));
+		$('ol div li').not('.played')[x1].classList.add("playing");
+	}
   }
-
+  function playPressed(){
+	if($('div.playing')[0])
+		$('li.playing').addClass('played');
+  }
+  
   function updatePlayedAndPlaying($this) {
     var $prev = $('.playing');
-    var $next = $this || $prev.nextAll('li').not('.played').first();
+    var $next = $this || $('ol li.queued');
     var playcount = $prev.children('a.song').attr('data-playcount');
 
     if(!$next.length) { // Last listing in column
@@ -153,20 +168,13 @@ $(function() {
       if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
     }
     $prev.children('a.song').attr('data-playcount', ++playcount);
-    $prev.removeClass('playing').addClass('played');
+    $prev.removeClass('playing');
     $next.addClass('playing');
     audio.load($('a', $next).attr('data-src'));
-    audio.play();
-  }
-
-  function updateQueued() {
-    var $next = $('.playing').nextAll ('li').not('.played').first();
-    $('.queued').removeClass('queued');
-    if(!$next.length) { // Last listing in column
-      $next = $('.playing').parent().nextAll('.col').find('li').not('.played').first();
-      if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
-    }
-    $next.addClass('queued');
+    if(document.getElementById("Auto").checked){
+		$prev.addClass('played');
+		audio.play();
+	}
   }
 
   // Keyboard shortcuts
@@ -185,3 +193,28 @@ $(function() {
     }
   })
 });
+function RandomChanged(){
+	var list = $('ol div li').not('.played').not('.playing').length;
+	var x1 = Math.floor((Math.random() * list));
+	$('ol li.playing').removeClass('playing');
+	$('ol div li').not('.played').not('.playing')[x1].classList.add("playing");
+	updateQueued();
+}
+
+function updateQueued() {
+    var $next = $('.playing').nextAll ('li').not('.played').first();
+	$('.queued').removeClass('queued');
+	if(document.getElementById("Random").checked){
+		var length = $('ol div li').not('.played').not('.playing').length;
+		var x1 = Math.floor((Math.random() * length));
+		$('ol div li').not('.played').not('.playing')[x1].classList.add("queued");
+	}
+	else{
+		if(!$next.length) { // Last listing in column
+			$next = $('.playing').parent().nextAll('.col').find('li').not('.played').first();
+			if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
+		}
+		$next.addClass('queued');
+    }
+    
+}
