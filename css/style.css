@@ -13,9 +13,6 @@ body {
   padding-bottom: 5px;
   border-bottom: 1px black solid;
 }
-.fixedplayer h1 {
-  display: none;
-}
 
 a {
   text-decoration: none;
@@ -77,6 +74,12 @@ ol li {
   height: 40px;
   display: block;
   margin: 5px 2px;
+}
+@media only screen and (max-device-width: 1280px) {
+  ol li {
+    font-size: 1.5em;
+    height: 80px;
+  }
 }
 ol li a {
   padding: 10px 15px 0px;
