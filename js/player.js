@@ -37,7 +37,7 @@ $(function() {
     var $ol = $('<ol>');
     $(window.songlist.songs).each(function(index, song){
       var link = $("<a>", { 
-        text: song.songname + " - " + song.artist,
+        text: song.songname,// + " - " + song.artist,
         class: 'song'
       })
       .attr('data-src', path + song.file)

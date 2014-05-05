@@ -82,6 +82,7 @@ ol li {
   }
 }
 ol li a {
+  text-transform: uppercase;
   padding: 10px 15px 0px;
   display: block;
   cursor: pointer;
