@@ -22,6 +22,7 @@ Working on autoAddSongs feature:
   - unable to find filepath (resolved - only with webkitdirectory)
   - unable to get file names in an angularjs event (resolved)
   - unable to get file extensions in an angularjs event (resolved)
+  - pushing songs to arraylist no longer works (unresolved)
 
 Performance tweaks:
 Hover on scroll disabled - *****
