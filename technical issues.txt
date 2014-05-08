@@ -16,6 +16,7 @@ Queued song doesn't jump to beginning when last song in list is played
 Reset doesn't properly reset all play counters
 Different margins after hover expansion (change inline-block to block)
 Moving from CSS3 column to full JS column implementation caused bugs in playing/queued transition
+Spacebar still scrolls page even when preventDefault is called (scroll event fires on keydown, not keyup)
 
 Enoch:
 Working on autoAddSongs feature:

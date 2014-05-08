@@ -47,8 +47,8 @@ $(function() {
       .wrap("<li></li>");
 
       // THIS CODE IS TO TEST WITH SCROLLBARS, COMMENT IT OUT AS YOU WISH
-      for(var i = 1; i < 10; ++i)
-        link.clone(true).appendTo($ol).wrap("<li></li>");
+      // for(var i = 1; i < 10; ++i)
+      //   link.clone(true).appendTo($ol).wrap("<li></li>");
     });
     $ol.appendTo("#listing");
     window.musicbingo = {
@@ -181,6 +181,7 @@ $(function() {
       if (!prev.length) prev = $("ol").find("li").last();
       prev.click();
     } else if (unicode == 32) { // spacebar
+      e.preventDefault();
       audio.playPause();
     }
   })
