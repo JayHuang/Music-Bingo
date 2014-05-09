@@ -1,3 +1,5 @@
+/* Author: Jay Huang */
+
 $(function() { 
   window.songlist = {
     "songs": [

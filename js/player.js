@@ -1,3 +1,7 @@
+/*******************
+* Author: Jay Huang
+********************/
+
 $(function() {
   createListing();
   createColumns();
