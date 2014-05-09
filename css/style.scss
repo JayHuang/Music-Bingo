@@ -39,18 +39,6 @@ body {
   line-height: 1.4;
 }
 
-.fixedplayer {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  margin: 0 auto;
-  background-color: $white;
-  padding-bottom: 10px;
-  h1 {
-    // display: none;
-  }
-}
-
 a {
   text-decoration: none;
 }
@@ -66,6 +54,13 @@ a {
 }
 
 #player { 
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $white;
+  padding-bottom: 10px;
   h1 {
     text-align: center;
     font-size: 1.2em;
@@ -92,8 +87,14 @@ a {
   background-color: $pink;
 }
 
+#listing {
+  position: relative;
+  top: 110px;
+}
+
 ol {
   padding: 0px;
+  margin-top: 0px;
   list-style: decimal-leading-zero inside;
   font-size: 0.9em;
   
@@ -127,8 +128,6 @@ ol {
     position: fixed;
     height: 30px;
     line-height: 30px;
-    top: 104px;
-
     .colplayedcount {
       height: 20px;
       line-height: 20px;

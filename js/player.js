@@ -23,11 +23,13 @@ $(function() {
 
   // If the user scrolls away from the top, keep the player in view
   $(window).scroll(function() {
-    if ($(window).scrollTop() >= 70) {
-      $(player).addClass('fixedplayer');
+    var player = document.getElementById('player');
+    var offset = parseInt($(player).height()) + parseInt($(player).css('paddingBottom'));
+
+    if ($(window).scrollTop() >= 1) {
       $('.columnlabel').addClass('columnlabelfixed');
+      $('.columnlabel').css({"top": offset-1});
     } else {
-      $(player).removeClass('fixedplayer');
       $('.columnlabel').removeClass('columnlabelfixed');
     }
   });
