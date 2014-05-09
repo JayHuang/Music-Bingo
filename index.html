@@ -11,7 +11,7 @@
 	<script src="js/jquery-1.9.0.min.js"></script>
     <script src="audiojs/audio.min.js"></script>
     <script src="js/songlist2.js"></script>
-	
+	<script src="js/bingoCardInfo.js"></script>
     <script src="js/player.js"></script>
     <!-- <script src="js/css3-multi-column.js"></script> -->
   </head>
@@ -28,8 +28,9 @@
 	<div id="wrapper">
       <div id="player">
         <div id="resetsongs">Reset</div>
-		<input type="checkbox" name="settings" id="Random" onclick="if(this.checked){RandomChanged()}"><label for="Random">Random</label>
-		<input type="checkbox" name="settings" id="Auto"><label for="Auto">AutoPlay</label>
+		<button type="button" onclick="otherpage()">Click Me!</button>
+		<label><input type="checkbox" name="settings" id="Random" onclick="if(this.checked){RandomChanged()}">Random</label></span>
+		<label><input type="checkbox" name="settings" id="Auto">AutoPlay</label></span>
         <h1 id>Music Bingo</h1>
         <audio preload></audio>
       </div>

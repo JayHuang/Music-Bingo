@@ -1,3 +1,4 @@
+
 @import "compass";
 
 $black: #000;
@@ -79,6 +80,31 @@ a {
 .disable-hover,
 .disable-hover * {
   pointer-events: none !important;
+}
+
+.slot {
+  float: left;
+  width: 16%;
+  height: 60px;
+  margin: 10px;
+  background-color: $lighter-grey;
+}
+ 
+.slot.played {
+    background-color: $green;
+}
+ 
+#listing {
+    text-align:center;
+}
+ 
+#holdBingo {
+    display: inline-block;
+    padding: 10px;
+}
+
+label {
+	cursor:pointer;
 }
 
 #resetsongs {
@@ -173,7 +199,7 @@ ol {
     width: 460px;
     margin: 0px auto;
   }
-
+  
   h1 {
     margin: 0px 0px 6px;
   }

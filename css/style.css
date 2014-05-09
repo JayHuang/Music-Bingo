@@ -53,6 +53,31 @@ a {
   pointer-events: none !important;
 }
 
+.slot {
+  float: left;
+  width: 16%;
+  height: 60px;
+  margin: 10px;
+  background-color: #cccccc;
+}
+
+.slot.played {
+  background-color: #58faac;
+}
+
+#listing {
+  text-align: center;
+}
+
+#holdBingo {
+  display: inline-block;
+  padding: 10px;
+}
+
+label {
+  cursor: pointer;
+}
+
 #resetsongs {
   cursor: pointer;
   width: 50px;

@@ -1,7 +1,7 @@
 $(function() { 
   window.songlist = {
     "songs": [
-      {"songname":"Give It To Me","artist":"Madonna","id":1,"file":"1.mp3"},
+      {"songname":"Give It To Me","artist":"Madonna","id":1,"file":"Final Fantasy X OST - To Zanarkand.mp3"},
       {"songname":"Whataya Want From Me","artist":"Adam Lambert","id":2,"file":"1.mp3"},
       {"songname":"Give A Little More","artist":"Maroon 5","id":3,"file":"1.mp3"},
       {"songname":"Like It's Her Birthday","artist":"Good Charlotte","id":4,"file":"1.mp3"},

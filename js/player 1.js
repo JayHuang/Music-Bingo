@@ -1,9 +1,6 @@
-var buttonSet = true;
-
 $(function() {
   createListing();
   createColumns();
-  makeBingo();
   updateSongWidth();
 
   var body = document.body, timer;
@@ -50,12 +47,9 @@ $(function() {
       .wrap("<li></li>");
 
       // THIS CODE IS TO TEST WITH SCROLLBARS, COMMENT IT OUT AS YOU WISH
-      //for(var i = 1; i < 10; ++i)
-        //link.clone(true).appendTo($ol).wrap("<li></li>");
+      for(var i = 1; i < 10; ++i)
+        link.clone(true).appendTo($ol).wrap("<li></li>");
     });
-	
-	//attaches the ordered list to the listing div
-	 
     $ol.appendTo("#listing");
     window.musicbingo = {
       "origwidth" : $("ol").find("li").width(),
@@ -145,25 +139,10 @@ $(function() {
     updateQueued();
   });
 
-  $('div .play-pause').click(function(e) {
-	e.preventDefault();
-	playPressed();
-  });
-  
   function initializePlaying() {
-	if(!document.getElementById("Random").checked)
-		$("ol").find("li").first().addClass('playing');
-	else{
-		var length = $('ol div li').not('.played').length;
-		var x1 = Math.floor((Math.random() * length));
-		$('ol div li').not('.played')[x1].classList.add("playing");
-	}
+    $("ol").find("li").first().addClass('playing');
   }
-  function playPressed(){
-	if($('div.playing')[0])
-		$('li.playing').addClass('played');
-  }
-  
+
   function updatePlayedAndPlaying($this) {
     var $prev = $('.playing');
     var $next = $this || $('ol li.queued');
@@ -174,13 +153,26 @@ $(function() {
       if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
     }
     $prev.children('a.song').attr('data-playcount', ++playcount);
-    $prev.removeClass('playing');
+    $prev.removeClass('playing').addClass('played');
     $next.addClass('playing');
     audio.load($('a', $next).attr('data-src'));
-    if(document.getElementById("Auto").checked){
-		$prev.addClass('played');
+    if(document.getElementById("Auto").checked)
 		audio.play();
+  }
+
+  function updateQueued() {
+    $('ol li.queued').removeClass('queued');
+	if(document.getElementById("Random").checked){
+		var length = $('ol div li').not('.played').not('.playing').length;
+		var x1 = Math.floor((Math.random() * length));
+		$('ol div li').not('.played').not('.playing')[x1].classList.add("queued");
 	}
+	else{
+		if($('ol li.playing').not('.played').length == 0)
+			$('ol li.playing').siblings().not('.played').first().addClass('queued');
+		else
+			$('ol li.playing').nextAll('li').not('.played').first().addClass('queued');
+	 }
   }
 
   // Keyboard shortcuts
@@ -198,98 +190,10 @@ $(function() {
       audio.playPause();
     }
   })
-  //Calls check when you press Enter in the textbox
-  $("#CardID").keyup(function(event){
-        //document.getElementById('Bingo').innerText = 'Some Text';
-        if(event.keyCode == 13){
-            check();
-        }
-	});
-	// Bingo Checker matches played songs and songs in the bingo card.
-    function check() {
-        var boolarray = [false, false, false, false, false, false, false, false, false, false, false, false, true,
-        false, false, false, false, false, false, false, false, false, false, false, false];
-        
-        var place = cardlist.cards[(document.getElementById('CardID').value.replace(/[A-Za-z]+/g, ''))-1];
-        if(place.id != document.getElementById('CardID').value){
-            alert("ID dosent exist");
-        }
-        else{
-            for (var i = 0; i < place.info.length; i++){
-                for(var j = 0; j < $('.played a.song').length; j++){
-                    if($('.played a.song')[j].getAttribute("data-songid") == place.info[i]){
-                        boolarray[i] = true;
-                        break;
-                    }
-                }
-            }
-            var x = 0;
-            var string = "";
-            while(x < boolarray.length){
-                string += boolarray[x++];
-                if(x%5 == 0)
-                    string += "\n";
-            }
-            console.log("ok");
-            for (var x = 0; x<boolarray.length; x++){
-                if(boolarray[x] == true){
-                    $(".slot")[x].classList.add("played");
-                }
-                else{
-                    $(".slot")[x].classList.remove("played");
-                }
-            }
-        }
-    } 
 });
-function RandomChanged(){
-	var list = $('ol div li').not('.played').not('.playing').length;
-	var x1 = Math.floor((Math.random() * list));
-	$('ol li.playing').removeClass('playing');
-	$('ol div li').not('.played').not('.playing')[x1].classList.add("playing");
-	updateQueued();
-}
-
-function updateQueued() {
-    var $next = $('.playing').nextAll ('li').not('.played').first();
-	$('.queued').removeClass('queued');
-	if(document.getElementById("Random").checked){
-		var length = $('ol div li').not('.played').not('.playing').length;
-		var x1 = Math.floor((Math.random() * length));
-		$('ol div li').not('.played').not('.playing')[x1].classList.add("queued");
-	}
-	else{
-		if(!$next.length) { // Last listing in column
-			$next = $('.playing').parent().nextAll('.col').find('li').not('.played').first();
-			if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
-		}
-		$next.addClass('queued');
-    }
-    
-}
-
-function makeBingo(){
-    var $hold = $('<div id="holdBingo" style = "display: none"></div>').appendTo("#listing");
-    $('<input type="text" id="CardID" value="">').appendTo($hold);
-    $('<div id="cardTitle"></div>').appendTo($hold);
-    $hold = $('<div id="pattern"></div>').appendTo($hold);
-    for(var x = 0; x < 25; x++){
-        $('<div class="slot"></div>').appendTo($hold);
-    }
-}
- 
-function otherpage(){
-    //$("#listing ol div.col").hide("slide", {direction: "left" }, 1000);
-    //$("#listing ol div.col").show("slide", { direction: "right" }, 1000);
-    if(buttonSet){
-        buttonSet = false;
-        $("#listing ol").hide();
-        $("#holdBingo").show();
-    }
-    else{
-        buttonSet = true;
-        $("#listing ol").show();
-        $("#holdBingo").hide();
-    }
- 
+function click(){
+	if(document.getElementById("Random").checked)
+		document.getElementById("Random").checked = false;
+	else
+		document.getElementById("Random").checked = true;
 }
