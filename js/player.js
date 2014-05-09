@@ -6,7 +6,7 @@ $(function() {
 
   var body = document.body, timer;
   var player = document.getElementById('player');
-  
+
   window.addEventListener('scroll', function() {
     clearTimeout(timer);
     if(!body.classList.contains('disable-hover'))
@@ -60,6 +60,8 @@ $(function() {
       "origheight" : $("ol").find("li").height(),
       "marginbottom" : parseInt($("ol").find("li").css('margin-bottom'))
     }
+
+    // Attach hover event to each listing
     $("ol").find("li").each(function() {
       $(this).hover(
         function() {
@@ -69,9 +71,7 @@ $(function() {
           $(this).stop().animate({height: window.musicbingo.origheight}, 100);
           $(this).children(':first').css({"overflow":"hidden", "white-space":"nowrap"});
       });
-      // $(this).clone(true).attr({"class":"song-detail"}).css({"display":"block", "z-index": 1}).appendTo($ol).wrap("<li></li>");
     });
-    $ol.appendTo("#listing");
   }
 
   // If reset is clicked, reset all songs
@@ -80,15 +80,20 @@ $(function() {
     $("ol").find("li").each(function(){
       $(this).removeClass('played playing queued').attr('data-playcount', 0);
     });
+
+    $(".col").find(".colplayedcount").each(function(){
+      $(this).text('').hide();
+    });
   });
 
-  // Instead of using CSS3 column count, use CSS3 columns
+  // Instead of using CSS3 column count, use CSS3 columns to create columns
   function createColumns() {
     var container;
     var i = 0;
     var numCols = 5;
-    var colCount = Math.ceil($("ol").find("li").length / numCols);
-      $("ol").find("li").each(function () {
+    var $listings = $("ol").find("li");
+    var colCount = Math.ceil($listings.length / numCols);
+      $listings.each(function () {
         if (i % colCount === 0)
             container = $('<div class="col"></div>').appendTo("ol");
 
@@ -97,45 +102,50 @@ $(function() {
     });
   }
 
+  // Create labels for the columns (B,I,N,G,O)
   function createColumnLabels() {
     var $cols = $('#listing').find('.col');
-    var labeltext = ['B','I', 'N', 'G', 'O'];
+    var labeltext = ['B', 'I', 'N', 'G', 'O'];
     var label = "<div class='columnlabel'></div>";
     if($cols.length == 5 && labeltext.length == 5) {
       for(var i = 0; i < labeltext.length; i++) {
-        $($cols[i]).prepend($(label).text(labeltext[i]));
-        // $($cols[i]).append();
-        // $(labeltext[i]).wrap($label).appendTo($cols[i]);
+        $($cols[i]).prepend($(label).text(labeltext[i]).append('<span class="colplayedcount"></span>'));
       }
     }
+  }
+
+  function updateColumnPlayedCount() {
+    var $colplayedcounts = $('.colplayedcount', '#listing');
+    $('.col', '#listing').each(function() {
+      var count = $(this).find('.played').length + $(this).find('.playing').length;
+      var $countspan = $(this).find('.colplayedcount');
+      if(count != 0) {
+        $countspan.show();
+        $countspan.text(count);
+      } else {
+        $countspan.hide();
+      }
+    });
   }
 
   // Make the items more packed on window resize
   function updateSongWidth(){
     var w = $('ol').width();
-    var margins = parseInt($("ol").find("li").css('marginLeft')) + parseInt($("ol").find("li").css('marginRight'));
+    var $listings = $("ol").find("li");
+    var margins = parseInt($listings.css('marginLeft')) + parseInt($listings.css('marginRight'));
     $("ol").find("li, .columnlabel").each(function() {
       $(this).width(w/5-margins);
     });
-    window.musicbingo.origwidth = $("ol").find("li").width();
-    window.musicbingo.origheight = $("ol").find("li").height();
+    window.musicbingo.origwidth = $listings.width();
+    window.musicbingo.origheight = $listings.height();
   }
 
-  // function updateSongWidth(){
-  //   var w = $('ol').width();
-  //   var margins = parseInt($("ol").find("li").css('marginLeft')) + parseInt($("ol").find("li").css('marginRight'));
-  //   $("ol").find("li").each(function() {
-  //     $(this).width(w/5-margins);
-  //   });
-  //   window.musicbingo.origwidth = $("ol").find("li").width();
-  //   window.musicbingo.origheight = $("ol").find("li").height();
-  // }
-
+  // Wait for the final event to occur with a timeout
   var waitForFinalEvent = (function() {
     var timers = {};
     return function (callback, ms, uniqueId) {
       if (!uniqueId)
-        uniqueId = "Don't call this twice without a uniqueId";
+        uniqueId = "Don't call this twice without a uniqueID";
 
       if (timers[uniqueId])
         clearTimeout (timers[uniqueId]);
@@ -156,6 +166,7 @@ $(function() {
   var audio = a[0];
   first = $('ol a').attr('data-src');
   initializePlaying();
+  updateColumnPlayedCount();
   updateQueued();
   audio.load(first);
 
@@ -166,10 +177,12 @@ $(function() {
     updateQueued();
   });
 
+  // Set the first listing to playing
   function initializePlaying() {
     $("ol").find("li").first().addClass('playing');
   }
 
+  // Update the played and playing listings
   function updatePlayedAndPlaying($this) {
     var $prev = $('.playing');
     var $next = $this || $prev.nextAll('li').not('.played').first();
@@ -182,10 +195,12 @@ $(function() {
     $prev.children('a.song').attr('data-playcount', ++playcount);
     $prev.removeClass('playing').addClass('played');
     $next.addClass('playing');
+    updateColumnPlayedCount();
     audio.load($('a', $next).attr('data-src'));
     audio.play();
   }
 
+  // Update the queued listing
   function updateQueued() {
     var $next = $('.playing').nextAll ('li').not('.played').first();
     $('.queued').removeClass('queued');
@@ -199,16 +214,16 @@ $(function() {
   // Keyboard shortcuts
   $(document).keydown(function(e) { 
     var unicode = e.charCode ? e.charCode : e.keyCode;
-       if (unicode == 39) { // right arrow
+       if (unicode == 39) { // Right arrow
         var next = $('.playing').next();
         if (!next.length) next = $("ol").find("li").first();
         next.click();
-    } else if (unicode == 37) { // back arrow
+    } else if (unicode == 37) { // Back arrow
       var prev = $('.playing').prev();
       if (!prev.length) prev = $("ol").find("li").last();
       prev.click();
-    } else if (unicode == 32) { // spacebar
-      e.preventDefault();
+    } else if (unicode == 32) { // Spacebar
+      e.preventDefault(); // Disable scroll
       audio.playPause();
     }
   })

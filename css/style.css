@@ -64,18 +64,36 @@ ol {
 ol .columnlabel {
   display: inline-block;
   text-align: center;
-  background-color: #81bef7;
+  background-color: #a9d0f5;
   width: 200px;
   height: 40px;
+  font-size: 20px;
   line-height: 40px;
   font-weight: bold;
   margin: 0 2px;
+}
+ol .columnlabel .colplayedcount {
+  display: inline-block;
+  background-color: #58faac;
+  color: black;
+  width: auto;
+  float: right;
+  height: 30px;
+  padding: 0 5px;
+  margin: 5px 5px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 30px;
 }
 ol .columnlabelfixed {
   position: fixed;
   height: 30px;
   line-height: 30px;
   top: 104px;
+}
+ol .columnlabelfixed .colplayedcount {
+  height: 20px;
+  line-height: 20px;
 }
 ol .col {
   max-width: 20%;
@@ -116,6 +134,7 @@ ol li.played {
 ol li.playing {
   color: black;
   background-color: #58faac;
+  font-weight: bold;
 }
 ol li.queued {
   background-color: #f3f781;

@@ -3,7 +3,7 @@
 $black: #000;
 $white: #FFF;
 $pink: #F78181;
-$blue: #81BEF7;
+$blue: #A9D0F5;
 $yellow: #F3F781;
 $green: #58FAAC;
 $dark-grey: #666; 
@@ -99,9 +99,24 @@ ol {
     background-color: $blue;
     width: 200px;
     height: 40px;
+    font-size: 20px;
     line-height: 40px;
     font-weight: bold;
     margin: 0 2px;
+
+    .colplayedcount {
+      display: inline-block;
+      background-color: $green;
+      color: $black;
+      width: auto;
+      float: right;
+      height: 30px;
+      padding: 0 5px;
+      margin: 5px 5px;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 30px;
+    }
   }
 
   .columnlabelfixed {
@@ -109,6 +124,11 @@ ol {
     height: 30px;
     line-height: 30px;
     top: 104px;
+
+    .colplayedcount {
+      height: 20px;
+      line-height: 20px;
+    }
   }
 
   .col {
@@ -153,20 +173,7 @@ ol {
     &.playing {
       color: $black;
       background-color: $green;
-    // &:before {
-    //   content: "\266B";
-    //   width: 14px;
-    //   height: 14px;
-    //   padding: 3px;
-    //   line-height: 14px;
-    //   margin: 0px;
-    //   position: absolute;
-    //   left: -24px;
-    //   top: 9px;
-    //   color: #000;
-    //   font-size: 13px;
-    //   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-    // }
+      font-weight: bold;
     }
 
     &.queued {
