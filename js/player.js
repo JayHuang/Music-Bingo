@@ -1,6 +1,7 @@
 $(function() {
   createListing();
   createColumns();
+  createColumnLabels();
   updateSongWidth();
 
   var body = document.body, timer;
@@ -18,10 +19,13 @@ $(function() {
 
   // If the user scrolls away from the top, keep the player in view
   $(window).scroll(function() {
-    if ($(window).scrollTop() >= 70)
+    if ($(window).scrollTop() >= 70) {
       $(player).addClass('fixedplayer');
-    else 
+      $('.columnlabel').addClass('columnlabelfixed');
+    } else {
       $(player).removeClass('fixedplayer');
+      $('.columnlabel').removeClass('columnlabelfixed');
+    }
   });
 
   // On window resize event, update the width of each song listing
@@ -93,18 +97,41 @@ $(function() {
     });
   }
 
+  function createColumnLabels() {
+    var $cols = $('#listing').find('.col');
+    var labeltext = ['B','I', 'N', 'G', 'O'];
+    var label = "<div class='columnlabel'></div>";
+    if($cols.length == 5 && labeltext.length == 5) {
+      for(var i = 0; i < labeltext.length; i++) {
+        $($cols[i]).prepend($(label).text(labeltext[i]));
+        // $($cols[i]).append();
+        // $(labeltext[i]).wrap($label).appendTo($cols[i]);
+      }
+    }
+  }
+
   // Make the items more packed on window resize
   function updateSongWidth(){
     var w = $('ol').width();
     var margins = parseInt($("ol").find("li").css('marginLeft')) + parseInt($("ol").find("li").css('marginRight'));
-    $("ol").find("li").each(function() {
+    $("ol").find("li, .columnlabel").each(function() {
       $(this).width(w/5-margins);
     });
     window.musicbingo.origwidth = $("ol").find("li").width();
     window.musicbingo.origheight = $("ol").find("li").height();
   }
 
-  var waitForFinalEvent = (function () {
+  // function updateSongWidth(){
+  //   var w = $('ol').width();
+  //   var margins = parseInt($("ol").find("li").css('marginLeft')) + parseInt($("ol").find("li").css('marginRight'));
+  //   $("ol").find("li").each(function() {
+  //     $(this).width(w/5-margins);
+  //   });
+  //   window.musicbingo.origwidth = $("ol").find("li").width();
+  //   window.musicbingo.origheight = $("ol").find("li").height();
+  // }
+
+  var waitForFinalEvent = (function() {
     var timers = {};
     return function (callback, ms, uniqueId) {
       if (!uniqueId)

@@ -3,6 +3,7 @@
 $black: #000;
 $white: #FFF;
 $pink: #F78181;
+$blue: #81BEF7;
 $yellow: #F3F781;
 $green: #58FAAC;
 $dark-grey: #666; 
@@ -10,7 +11,7 @@ $grey: #888;
 $lighter-grey: #CCC;
 $lightest-grey: #EEE;
 
-@mixin hide-text{
+@mixin hide-text {
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
@@ -40,8 +41,7 @@ body {
   width: 100%;
   margin: 0 auto;
   background-color: $white;
-  padding-bottom: 5px;
-  border-bottom: 1px $black solid;
+  padding-bottom: 10px;
   h1 {
     // display: none;
   }
@@ -92,6 +92,24 @@ ol {
   padding: 0px;
   list-style: decimal-leading-zero inside;
   font-size: 0.9em;
+  
+  .columnlabel {
+    display: inline-block;
+    text-align: center;
+    background-color: $blue;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+    margin: 0 2px;
+  }
+
+  .columnlabelfixed {
+    position: fixed;
+    height: 30px;
+    line-height: 30px;
+    top: 104px;
+  }
 
   .col {
     max-width: 20%;
@@ -122,14 +140,14 @@ ol {
       white-space: nowrap;
     }
     
-    &.played {
-      color: $dark-grey;
-      background-color: $lighter-grey;
-    }
-
     &:hover {
       color: $black;
       background-color: $lighter-grey;
+    }
+
+    &.played {
+      color: $dark-grey;
+      background-color: $pink;
     }
 
     &.playing {

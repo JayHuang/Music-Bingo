@@ -10,8 +10,7 @@ body {
   width: 100%;
   margin: 0 auto;
   background-color: white;
-  padding-bottom: 5px;
-  border-bottom: 1px black solid;
+  padding-bottom: 10px;
 }
 
 a {
@@ -62,6 +61,22 @@ ol {
   list-style: decimal-leading-zero inside;
   font-size: 0.9em;
 }
+ol .columnlabel {
+  display: inline-block;
+  text-align: center;
+  background-color: #81bef7;
+  width: 200px;
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+ol .columnlabelfixed {
+  position: fixed;
+  height: 30px;
+  line-height: 30px;
+  top: 104px;
+}
 ol .col {
   max-width: 20%;
   display: inline-block;
@@ -90,13 +105,13 @@ ol li a {
   overflow: hidden;
   white-space: nowrap;
 }
-ol li.played {
-  color: #666666;
-  background-color: #cccccc;
-}
 ol li:hover {
   color: black;
   background-color: #cccccc;
+}
+ol li.played {
+  color: #666666;
+  background-color: #f78181;
 }
 ol li.playing {
   color: black;
