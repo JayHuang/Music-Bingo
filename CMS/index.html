@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="cms">
+	<head>
+		<meta charset="utf-8">
+		<title>Songs Management System</title>
+		<link rel="stylesheet" href="css/style.css">
+		<style>[ng-cloak] {display: none;}</style>
+		<script src="angularjs/angular/angular.js"></script>
+		<script src="angularjs/angular-route/angular-route.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/controllers/songCtrl.js"></script>
+		<script src="js/services/songStorage.js"></script>
+		<script src="js/directives/songFocus.js"></script>
+		<script src="js/directives/songEscape.js"></script>
+	</head>
+	<body>
+	<div id="Cms-wrapper">
+		<h2 id="title">Songs Management System</h2>
+		<!-- This one executes yeah !!! -->
+		<div ng-controller="SongCtrl">
+			<form id="myform" ng-submit="addSong()">
+				<input id="intermission" type="checkbox" value="intermission"/>Intermission song
+				<input class="input-field" placeholder="Add song title here" ng-model="newSong" autofocus required />
+				<!-- will be implement checking or validating later @@ -->
+				<input class="input-field" placeholder="Add the artist name here" ng-model="newArtist" autofocus required />
+				<input id="File-upload" type="file" ng-model="newMP3FilePath" autofocus required />
+				<button>+</button>
+				<!-- Show the number of songs -->
+				<label id="Number-of-song" ng-show="songs.length"> {{songs.length}} songs added / 75</label>
+			</form>
+			<h3 id="title">Auto Import Songs</h3>
+			<form ng-submit="autoAddSongs()">
+				<input type="file" id="File-upload-auto-add" webkitdirectory multiple/>
+				<button>+</button>
+			</form>
+			<h5 id="title">Remove All</h5>
+			<button ng-click="removeAllSongs()">-</button>
+			</form>
+			<div id="container" ng-show="songs.length" ng-cloak>
+				<ul>
+					<li ng-repeat="song in songs track by $index">
+						<!-- display only song title la -->
+						{{song.title}}
+						
+						<div class="click-items">
+							<a ng-click="removeSong(song)" class="delete-song clickable" title="Remove song">
+								&#10006;
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

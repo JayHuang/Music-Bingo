@@ -1,0 +1,119 @@
+/*CSS for CMS*/
+#Cms-wrapper {
+	margin: 0 auto;
+	width: 960px;
+	text-align: center;
+}
+
+.input-field  {
+	width: 180px;
+	height: 25px;
+}
+
+#File-upload{
+    position:relative;
+    display:inline-block;    
+    border-radius:8px;
+    border:#ebebeb solid 1px;
+    width:250px; 
+    padding: 4px 6px 4px 8px;
+    font: normal 14px Myriad Pro, Verdana, Geneva, sans-serif;
+    color: #7f7f7f;
+    margin-top: 2px;
+    background:white;
+}
+#File-upload input[type="file"]{
+    -webkit-appearance:none; 
+    position:absolute;
+    top:0; left:0;
+    opacity:0;
+	visibility:hidden;
+}
+
+#File-upload::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+#File-upload-auto-add{
+    position:relative;
+    display:inline-block;    
+    border-radius:8px;
+    border:#ebebeb solid 1px;
+    width:250px; 
+    padding: 4px 6px 4px 8px;
+    font: normal 14px Myriad Pro, Verdana, Geneva, sans-serif;
+    color: #7f7f7f;
+    margin-top: 2px;
+    background:white;
+}
+#File-upload-auto-add input[type="file"]{
+    -webkit-appearance:none; 
+    position:absolute;
+    top:0; left:0;
+    opacity:0;
+  visibility:hidden;
+}
+
+#File-upload-auto-add::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+#Cms-wrapper div button {
+	width: 35px;
+	height: 32px;
+	border-style: none;
+	font-size: 20px;
+	border-radius:8px;
+    border:#ebebeb solid 1px;
+	cursor: pointer;
+}
+
+ul {
+	font: normal 15px Myriad Pro, Verdana, Geneva, sans-serif;
+	list-style-type:none;
+	padding-left: 35px;
+}
+ul li {
+	margin-left: 30px;
+	text-align: left;
+	margin-top: 10px;
+	border-bottom: 1px solid #ebebeb;
+	padding-bottom: 7px; 
+}
+
+#container {
+	width: 740px;
+}
+
+#title {
+	/*change color, size, font later here*/
+	font: normal 25px Myriad Pro, Verdana, Geneva, sans-serif;
+	color: #666666;
+}
+
+#Number-of-song {
+	font: normal 14px Myriad Pro, Verdana, Geneva, sans-serif;
+	color: #666666;
+}
+
+.click-items {
+  float: right;
+  text-align: center;
+  background-color: #EEE;
+  color: #888;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  cursor: pointer;
+  border-bottom: 1px solid #ebebeb;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.clickable:hover {
+  color: red;
+}

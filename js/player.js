@@ -1,5 +1,5 @@
 $(function() {
-  //createListing();
+  createListing();
   createColumns();
   updateSongWidth();
 
@@ -32,26 +32,11 @@ $(function() {
   });
 
   // If autoadd is clicked, add the first 75 songs in the songs folder into a songlist and then into the player
-  $('#autoadd').on('click', function(e){
+  $('#autoaddsongs').on('click', function(e){
+  	console.log("test");
   	e.preventDefault();
-  	//Get array of files included in the songs folder
-  	var songsFolder = new Enumerator($('songs/').Files);
-  	//Create songlist
-  	window.songlist = {
-  		"songs": [
-		  	//Get the first 75 songs in songsFolder 
-		  	for(i = 0; i < 75; i++){
-		  		//get song name
-		  		songsFolder.item().name;
-		  		//get song artist
-		  		
-		  		//get song path
-		  		songsFolder.item().path;
-		  		//move to next song in songsFolder
-		  		songsFolder.moveNext();
-		  	}
-	  	]
-  	}
+  	// make sure the songs are in 'songs/' folder
+  	
   });
 
   // Create songs listing
@@ -70,23 +55,22 @@ $(function() {
       .wrap("<li></li>");
 
       // THIS CODE IS TO TEST WITH SCROLLBARS, COMMENT IT OUT AS YOU WISH
-      /*link.clone(true).appendTo($ol).wrap("<li></li>");
-      link.clone(true).appendTo($ol).wrap("<li></li>");
-      link.clone(true).appendTo($ol).wrap("<li></li>");
-      link.clone(true).appendTo($ol).wrap("<li></li>");*/
+      // for(var i = 1; i < 10; ++i)
+      //   link.clone(true).appendTo($ol).wrap("<li></li>");
     });
     $ol.appendTo("#listing");
     window.musicbingo = {
-      "origwidth" : $("ol").find("li").width(),f
-      "origheight" : $("ol").find("li").height()
+      "origwidth" : $("ol").find("li").width(),
+      "origheight" : $("ol").find("li").height(),
+      "marginbottom" : parseInt($("ol").find("li").css('margin-bottom'))
     }
     $("ol").find("li").each(function() {
       $(this).hover(
         function() {
-          $(this).stop().animate({height: window.musicbingo.origheight * 2}, 200);
+          $(this).stop().animate({height: window.musicbingo.origheight * 2 + window.musicbingo.marginbottom}, 200);
           $(this).children(':first').css({"overflow":"visible", "white-space":"normal"});
         }, function() {
-          $(this).stop().animate({width: window.musicbingo.origwidth, height: window.musicbingo.origheight}, 100);
+          $(this).stop().animate({height: window.musicbingo.origheight}, 100);
           $(this).children(':first').css({"overflow":"hidden", "white-space":"nowrap"});
       });
       // $(this).clone(true).attr({"class":"song-detail"}).css({"display":"block", "z-index": 1}).appendTo($ol).wrap("<li></li>");
@@ -145,64 +129,67 @@ $(function() {
   // Setup the player to autoplay the next track
   var a = audiojs.createAll({
     trackEnded: function() {
-      var $prev = $('.playing');
-      var next = $prev.nextAll('li').not('.played').first();
-      if (!next.length) next = $("ol").find("li").siblings().not('.played').first();
-      var playcount = $prev.children('a.song').attr('data-playcount');
-      $prev.children('a.song').attr('data-playcount', ++playcount);
-      $prev.removeClass('playing').addClass('played');
-      next.addClass('playing');
-      setupQueued();
-      audio.load($('a', next).attr('data-src'));
-      audio.play();
+      updatePlayedAndPlaying();
+      updateQueued();
     }
   });
   
   // Load in the first track
   var audio = a[0];
   first = $('ol a').attr('data-src');
-  $("ol").find("li").first().addClass('playing');
-  setupQueued();
+  initializePlaying();
+  updateQueued();
   audio.load(first);
 
   // Load in a track on click
   $("ol").find("li").click(function(e) {
     e.preventDefault();
-    var $prev = $('.playing');
-    var playcount = $prev.children('a.song').attr('data-playcount');
-    $prev.children('a.song').attr('data-playcount', ++playcount);
-    $prev.removeClass('playing').addClass('played');
-    $(this).addClass('playing').siblings();
-    setupQueued();
-    audio.load($('a', this).attr('data-src'));
-    // var oldtext = $(this).children('a').text();
-    // $(this).children('a').text(oldtext + "\u266B");
-    audio.play();
+    updatePlayedAndPlaying($(this));
+    updateQueued();
   });
 
-  function setupQueued(){
+  function initializePlaying() {
+    $("ol").find("li").first().addClass('playing');
+  }
+
+  function updatePlayedAndPlaying($this) {
+    var $prev = $('.playing');
+    var $next = $this || $prev.nextAll('li').not('.played').first();
+    var playcount = $prev.children('a.song').attr('data-playcount');
+
+    if(!$next.length) { // Last listing in column
+      $next = $('.playing').parent().nextAll('.col').find('li').not('.played').first();
+      if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
+    }
+    $prev.children('a.song').attr('data-playcount', ++playcount);
+    $prev.removeClass('playing').addClass('played');
+    $next.addClass('playing');
+    audio.load($('a', $next).attr('data-src'));
+    audio.play();
+  }
+
+  function updateQueued() {
+    var $next = $('.playing').nextAll ('li').not('.played').first();
     $('.queued').removeClass('queued');
-    if($('.playing').nextAll('li').not('.played').length == 0)
-      $('.playing').siblings().not('.played').first().addClass('queued');
-    else
-      $('.playing').nextAll('li').not('.played').first().addClass('queued');
+    if(!$next.length) { // Last listing in column
+      $next = $('.playing').parent().nextAll('.col').find('li').not('.played').first();
+      if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
+    }
+    $next.addClass('queued');
   }
 
   // Keyboard shortcuts
-  $(document).keydown(function(e) {
+  $(document).keydown(function(e) { 
     var unicode = e.charCode ? e.charCode : e.keyCode;
-       // right arrow
-       if (unicode == 39) {
+       if (unicode == 39) { // right arrow
         var next = $('.playing').next();
         if (!next.length) next = $("ol").find("li").first();
         next.click();
-      // back arrow
-    } else if (unicode == 37) {
+    } else if (unicode == 37) { // back arrow
       var prev = $('.playing').prev();
       if (!prev.length) prev = $("ol").find("li").last();
       prev.click();
-      // spacebar
-    } else if (unicode == 32) {
+    } else if (unicode == 32) { // spacebar
       audio.playPause();
     }
   })
