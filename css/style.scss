@@ -15,10 +15,19 @@ $grey: #888;
 $lighter-grey: #CCC;
 $lightest-grey: #EEE;
 
-@mixin hide-text {
+@mixin hide-text() {
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
+}
+
+@mixin un-selectable() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @mixin breakpoint($bp) {
@@ -90,6 +99,7 @@ a {
 #listing {
   position: relative;
   top: 110px;
+  @include un-selectable();
 }
 
 ol {

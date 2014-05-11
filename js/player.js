@@ -179,8 +179,10 @@ $(function() {
   // Load in a track on click
   $("ol").find("li").click(function(e) {
     e.preventDefault();
-    updatePlayedAndPlaying($(this));
-    updateQueued();
+    if(!$(this).hasClass('playing')){
+      updatePlayedAndPlaying($(this));
+      updateQueued();
+    }
   });
 
   // Set the first listing to playing
