@@ -40,6 +40,7 @@ a {
 }
 
 .audiojs {
+  display: block;
   margin: 0 auto;
   background-image: none;
   -moz-box-shadow: none;
@@ -60,7 +61,8 @@ a {
 }
 
 #listing {
-  top: 110px;
+  position: relative;
+  top: 67px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;

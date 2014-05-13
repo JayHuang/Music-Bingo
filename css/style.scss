@@ -79,6 +79,7 @@ a {
 }
 
 .audiojs {
+  display: block;
   margin: 0 auto;
   background-image: none;
   @include box-shadow(none);
@@ -97,7 +98,8 @@ a {
 }
 
 #listing {
-  top: 110px;
+  position: relative;
+  top: 67px;
   @include un-selectable();
 }
 

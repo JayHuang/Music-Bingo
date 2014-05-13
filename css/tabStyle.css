@@ -1,10 +1,15 @@
 .tabs {
 	position: relative;
-	top: 310px;
+	top: 50px;
     width:100%;
     display:inline-block;
 }
-    
+.tabs .tab-links {
+	position: fixed;
+	top: 70px;
+	z-index: 2;
+}
+
 .tab-links:after {
 	display:block;
     clear:both;
@@ -33,7 +38,7 @@
 }
  
 li.active a, li.active a:hover {
-    background:#fff;
+    background:#cdcdcd;
     color:#4c4c4c;
 }
  
@@ -42,7 +47,7 @@ li.active a, li.active a:hover {
     padding:15px;
     border-radius:3px;
     box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-    background: #ededed;
+    background: #fff;
 }
 
 .tab {
