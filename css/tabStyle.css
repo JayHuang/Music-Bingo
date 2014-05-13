@@ -1,6 +1,6 @@
 .tabs {
 	position: relative;
-	top: 50px;
+	top: 140px;
     width:100%;
     display:inline-block;
 }
@@ -45,16 +45,17 @@ li.active a, li.active a:hover {
     /*----- Content of Tabs -----*/
 .tab-content {
     padding:15px;
+	padding-top: 5px;
     border-radius:3px;
     box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-    background: #fff;
+    background-color: #fff;
 }
 
-.tab {
+.tab  {
     display:none;
 }
  
- .tab.active {
+.tab.active {
     display:block;
 }
 

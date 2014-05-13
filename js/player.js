@@ -8,6 +8,9 @@ $(function() {
   createColumnLabels();
   updateSongWidth();
   createTabs();
+  createIntermission();
+  createSample();
+  createIntro();
 
   var body = document.body, timer;
   var player = document.getElementById('player');
@@ -94,6 +97,10 @@ $(function() {
     $(".col").find(".colplayedcount").each(function(){
       $(this).text('').hide();
     });
+	var curAudio = document.getElementById('jay-audio');
+	curAudio.pause();
+	audio.pause();
+	curAudio.currentTime = 0;
   });
 
   // Instead of using CSS3 column count, use CSS3 columns to create columns
@@ -296,12 +303,10 @@ $(function() {
   
   function createTabs() {
 	$('.tabs .tab-links a').on('click', function(e) {
-		var currentAttrValue = $(this).attr('href');
-		
+		var currentAttrValue = $(this).attr('href');		
 		$('.tabs ' + currentAttrValue).show().siblings().hide();
-		
-		$(this).parent('li').addClass('active').siblings().removeClass('active');
-		
+		$('.tabs ' + currentAttrValue).addClass('active').siblings().removeClass('active');
+		$(this).parent('li').addClass('active').siblings().removeClass('active');		
 		e.preventDefault();
 	});
   }
@@ -319,4 +324,117 @@ $(function() {
 	var audio = new Audio(path + "intro.wav");
 	audio.play();
   }
+
+  function createIntermission(){
+    var path = 'songs/';
+	// Danny Lieu
+	var samplePath = 'songs/sample/';
+    var $ol = $('<ol>');
+    $(window.intermission.songs).each(function(index, song){
+      var link = $("<a>", { 
+        text: song.songname,// + " - " + song.artist,
+        class: 'song'
+      })	
+      .attr('data-src', path + song.file)
+      .attr('data-playcount', '0')
+      .attr('data-songid', song.id)
+      .appendTo($ol)
+      .wrap("<li></li>");
+
+
+    });
+    $ol.appendTo("#intermission");
+	window.musicbingo = {
+      "origwidth" : $("ol").find("li").width(),
+      "origheight" : $("ol").find("li").height(),
+      "marginbottom" : parseInt($("ol").find("li").css('margin-bottom'))
+    }
+
+    // Attach hover event to each listing
+    $("ol").find("li").each(function() {
+      $(this).hover(
+        function() {
+          $(this).stop().animate({height: window.musicbingo.origheight * 2 + window.musicbingo.marginbottom}, 200);
+          $(this).children(':first').css({"overflow":"visible", "white-space":"normal"});
+        }, function() {
+          $(this).stop().animate({height: window.musicbingo.origheight}, 100);
+          $(this).children(':first').css({"overflow":"hidden", "white-space":"nowrap"});
+      });
+    });
+  }
+  
+  function createSample(){
+    var path = 'songs/';
+	// Danny Lieu
+	var samplePath = 'songs/sample/';
+    var $ol = $('<ol>');
+    $(window.intermission.songs).each(function(index, song){
+      var link = $("<a>", { 
+        text: song.songname,// + " - " + song.artist,
+        class: 'song'
+      })	
+      .attr('data-src', path + song.file)
+      .attr('data-playcount', '0')
+      .attr('data-songid', song.id)
+      .appendTo($ol)
+      .wrap("<li></li>");
+
+    });
+    $ol.appendTo("#sample");
+	window.musicbingo = {
+      "origwidth" : $("ol").find("li").width(),
+      "origheight" : $("ol").find("li").height(),
+      "marginbottom" : parseInt($("ol").find("li").css('margin-bottom'))
+    }
+
+    // Attach hover event to each listing
+    $("ol").find("li").each(function() {
+      $(this).hover(
+        function() {
+          $(this).stop().animate({height: window.musicbingo.origheight * 2 + window.musicbingo.marginbottom}, 200);
+          $(this).children(':first').css({"overflow":"visible", "white-space":"normal"});
+        }, function() {
+          $(this).stop().animate({height: window.musicbingo.origheight}, 100);
+          $(this).children(':first').css({"overflow":"hidden", "white-space":"nowrap"});
+      });
+    });
+  }
+  
+  function createIntro(){
+    var path = 'songs/';
+	// Danny Lieu
+	var samplePath = 'songs/sample/';
+    var $ol = $('<ol>');
+    $(window.intermission.songs).each(function(index, song){
+      var link = $("<a>", { 
+        text: song.songname,// + " - " + song.artist,
+        class: 'song'
+      })	
+      .attr('data-src', path + song.file)
+      .attr('data-playcount', '0')
+      .attr('data-songid', song.id)
+      .appendTo($ol)
+      .wrap("<li></li>");
+
+    });
+    $ol.appendTo("#intro");
+	window.musicbingo = {
+      "origwidth" : $("ol").find("li").width(),
+      "origheight" : $("ol").find("li").height(),
+      "marginbottom" : parseInt($("ol").find("li").css('margin-bottom'))
+    }
+
+    // Attach hover event to each listing
+    $("ol").find("li").each(function() {
+      $(this).hover(
+        function() {
+          $(this).stop().animate({height: window.musicbingo.origheight * 2 + window.musicbingo.marginbottom}, 200);
+          $(this).children(':first').css({"overflow":"visible", "white-space":"normal"});
+        }, function() {
+          $(this).stop().animate({height: window.musicbingo.origheight}, 100);
+          $(this).children(':first').css({"overflow":"hidden", "white-space":"nowrap"});
+      });
+    });
+  }
 });
+	

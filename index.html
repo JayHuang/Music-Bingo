@@ -13,6 +13,7 @@
     <script src="js/jquery-1.9.0.min.js"></script>
     <script src="audiojs/audio.min.js"></script>
     <script src="js/min/songlist2.min.js"></script>
+	<script src="js/min/songlist4.min.js"></script>
     <script src="js/min/player.min.js"></script>
   </head>
   <body>
@@ -21,7 +22,7 @@
         <div class="pushButton" id="resetsongs">Reset</div>
 		<div class="pushButton" id="playIntro" onclick="playIntroSample()" >Play Introduction</div>
 		<div class="onoffswitch">
-			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Random" onclick="toggleMode(this)">
+			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Random">
 			<label class="onoffswitch-label" for="Random">
 				<div class="onoffswitch-inner" id="btnRandom"></div>
 				<div class="onoffswitch-switch"></div>
@@ -58,7 +59,7 @@
 				</ul>	
 				<div class="tab-content">
 					<div id="listing" class="tab active"></div>
-					<div id="intermission" class="tab">Intermission Music</div>
+					<div id="intermission" class="tab"></div>
 					<div id="sample" class="tab">Sample</div>
 					<div id="intro" class="tab">Intro</div>
 				</div>

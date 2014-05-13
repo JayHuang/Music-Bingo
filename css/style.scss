@@ -99,7 +99,7 @@ a {
 
 #listing {
   position: relative;
-  top: 67px;
+  top: 0px;
   @include un-selectable();
 }
 
@@ -244,4 +244,9 @@ ol {
 
 .sample-audio {
 	display: none;
+}
+
+#menu {
+	display: inline-block;
+	width: 100%;
 }
