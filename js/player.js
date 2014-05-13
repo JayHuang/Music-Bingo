@@ -7,6 +7,7 @@ $(function() {
   createColumns();
   createColumnLabels();
   updateSongWidth();
+  createTabs();
 
   var body = document.body, timer;
   var player = document.getElementById('player');
@@ -23,11 +24,13 @@ $(function() {
 
   // If the user scrolls away from the top, keep the player in view
   $(window).scroll(function() {
-    if ($(window).scrollTop() >= 70) {
-      $(player).addClass('fixedplayer');
+    var player = document.getElementById('player');
+    var offset = parseInt($(player).height()) + parseInt($(player).css('paddingBottom'));
+
+    if ($(window).scrollTop() >= 1) {
       $('.columnlabel').addClass('columnlabelfixed');
+      $('.columnlabel').css({"top": offset-1});
     } else {
-      $(player).removeClass('fixedplayer');
       $('.columnlabel').removeClass('columnlabelfixed');
     }
   });
@@ -42,6 +45,7 @@ $(function() {
   // Create songs listing
   function createListing(){
     var path = 'songs/';
+	var samplePath ='songs/sample/';
     var $ol = $('<ol>');
     $(window.songlist.songs).each(function(index, song){
       var link = $("<a>", { 
@@ -49,6 +53,7 @@ $(function() {
         class: 'song'
       })
       .attr('data-src', path + song.file)
+	  .attr('data-sample', samplePath + setSampleSong(song.id))
       .attr('data-playcount', '0')
       .attr('data-songid', song.id)
       .appendTo($ol)
@@ -159,15 +164,55 @@ $(function() {
   })();
 
   // Setup the player to autoplay the next track
-  var a = audiojs.createAll({
+  var audio = audiojs.create(document.getElementById("jay-audio"),{
     trackEnded: function() {
       updatePlayedAndPlaying();
       updateQueued();
     }
   });
   
+  // Danny Lieu audio
+  var sampleAudio = audiojs.create(document.getElementById("sample-audio"), {
+	trackEnded: function() {
+		updateSampleSong();
+	}
+  });
+  // Danny Lieu
+  var duration;
+  function updateSampleSong($this) {	
+    var $nextSong = $this || $('ol li.queued');   
+
+    if(!$nextSong.length) { // Last listing in column
+      $nextSong = $('.playing').parent().nextAll('.col').find('li').not('.played').first();
+      if(!$nextSong.length) $nextSong = $('ol li').not('.played').first(); // Last song
+    }  
+	sampleAudio.load($('a', $nextSong).attr('data-sample'));	
+	duration = sampleAudio.duration * 1000;    
+  }
+  
+  function setSampleSong(songId) {	
+	var file;
+	switch (Math.floor((songId - 1) / 15)) {
+		case 0:
+			file = "B.mp3";		
+			break;
+		case 1:
+			file = "I.mp3";			
+			break;
+		case 2:
+			file = "N.mp3";			
+			break;
+		case 3:
+			file = "G.mp3";			
+			break;
+		case 4:
+			file = "O.mp3";			
+			break;
+	}
+	return file;
+  }
+  
   // Load in the first track
-  var audio = a[0];
   first = $('ol a').attr('data-src');
   initializePlaying();
   updateColumnPlayedCount();
@@ -177,8 +222,11 @@ $(function() {
   // Load in a track on click
   $("ol").find("li").click(function(e) {
     e.preventDefault();
-    updatePlayedAndPlaying($(this));
-    updateQueued();
+    if(!$(this).hasClass('playing')){
+	  updateSampleSong($(this));
+      updatePlayedAndPlaying($(this));
+      updateQueued();
+    }
   });
 
   // Set the first listing to playing
@@ -189,7 +237,7 @@ $(function() {
   // Update the played and playing listings
   function updatePlayedAndPlaying($this) {
     var $prev = $('.playing');
-    var $next = $this || $prev.nextAll('li').not('.played').first();
+    var $next = $this || $('ol li.queued');
     var playcount = $prev.children('a.song').attr('data-playcount');
 
     if(!$next.length) { // Last listing in column
@@ -197,22 +245,34 @@ $(function() {
       if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
     }
     $prev.children('a.song').attr('data-playcount', ++playcount);
-    $prev.removeClass('playing').addClass('played');
+    $prev.removeClass('playing');
     $next.addClass('playing');
     updateColumnPlayedCount();
     audio.load($('a', $next).attr('data-src'));
-    audio.play();
+	if (document.getElementById("Narrator").checked) sampleAudio.play();
+	else duration = 0;
+	if (document.getElementById("Auto").checked) {
+		$prev.addClass('played');
+		setTimeout(function() { audio.play()}, duration);
+	}
   }
 
   // Update the queued listing
   function updateQueued() {
     var $next = $('.playing').nextAll ('li').not('.played').first();
     $('.queued').removeClass('queued');
-    if(!$next.length) { // Last listing in column
-      $next = $('.playing').parent().nextAll('.col').find('li').not('.played').first();
-      if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
+    if(document.getElementById("Random").checked){
+		var length = $('ol div li').not('.played').not('.playing').length;
+		var x1 = Math.floor((Math.random() * length));
+		$('ol div li').not('.played').not('.playing')[x1].classList.add("queued");
+	}
+	else{
+		if(!$next.length) { // Last listing in column
+			$next = $('.playing').parent().nextAll('.col').find('li').not('.played').first();
+			if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
+		}
+		$next.addClass('queued');
     }
-    $next.addClass('queued');
   }
 
   // Keyboard shortcuts
@@ -231,4 +291,31 @@ $(function() {
       audio.playPause();
     }
   })
+  
+  function createTabs() {
+	$('.tabs .tab-links a').on('click', function(e) {
+		var currentAttrValue = $(this).attr('href');
+		
+		$('.tabs ' + currentAttrValue).show().siblings().hide();
+		
+		$(this).parent('li').addClass('active').siblings().removeClass('active');
+		
+		e.preventDefault();
+	});
+  }
+  
+  function RandomChanged(){
+	var list = $('ol div li').not('.played').not('.playing').length;
+	var x1 = Math.floor((Math.random() * list));
+	$('ol li.playing').removeClass('playing');
+	$('ol div li').not('.played').not('.playing')[x1].classList.add("playing");
+	updateQueued();
+  }
+
+  function playIntroSample() {
+	var path = "songs/intro/";
+	var audio = new Audio(path + "intro.wav");
+	audio.play();
+  }
+  
 });

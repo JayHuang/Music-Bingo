@@ -7,15 +7,6 @@ body {
   line-height: 1.4;
 }
 
-.fixedplayer {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  margin: 0 auto;
-  background-color: white;
-  padding-bottom: 10px;
-}
-
 a {
   text-decoration: none;
 }
@@ -32,6 +23,15 @@ a {
   }
 }
 
+#player {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  padding-bottom: 10px;
+}
 #player h1 {
   text-align: center;
   font-size: 1.2em;
@@ -59,8 +59,20 @@ a {
   background-color: #f78181;
 }
 
+#listing {
+  /* position: relative;*/
+  top: 110px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 ol {
   padding: 0px;
+  margin-top: 0px;
   list-style: decimal-leading-zero inside;
   font-size: 0.9em;
 }
@@ -92,7 +104,6 @@ ol .columnlabelfixed {
   position: fixed;
   height: 30px;
   line-height: 30px;
-  top: 104px;
 }
 ol .columnlabelfixed .colplayedcount {
   height: 20px;
@@ -186,4 +197,8 @@ ol li.queued {
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sample-audio {
+  display: none;
 }

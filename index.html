@@ -8,6 +8,8 @@
     <title>Music Bingo</title>
     <meta content="width=device-width, initial-scale=0.6" name="viewport">
     <link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="css/tabStyle.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="css/buttonStyle.css" media="screen">
     <script src="js/jquery-1.9.0.min.js"></script>
     <script src="audiojs/audio.min.js"></script>
     <script src="js/min/songlist2.min.js"></script>
@@ -16,12 +18,55 @@
   <body>
     <div id="wrapper">
       <div id="player">
-        <div id="resetsongs">Reset</div>
+			<div id="setting">
+				<div class="onoffswitch">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Random" onclick="if (this.checked) RandomChanged();">
+					<label class="onoffswitch-label" for="Random">
+						<div class="onoffswitch-inner" id="btnRandom"></div>
+						<div class="onoffswitch-switch"></div>
+					</label>
+				</div>
+				<div class="onoffswitch">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Auto">
+					<label class="onoffswitch-label" for="Auto">
+						<div class="onoffswitch-inner" id="btnAutoplay"></div>
+						<div class="onoffswitch-switch"></div>
+					</label>
+				</div>
+				<div class="onoffswitch">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Narrator">
+					<label class="onoffswitch-label" for="Narrator">
+						<div class="onoffswitch-inner" id="btnNarrator"></div>
+						<div class="onoffswitch-switch"></div>
+					</label>
+				</div>
+			</div>			   
+			<div class="pushButton" id="resetsongs">Reset</div>
+			<div class="pushButton" id="playIntro" onclick="playIntroSample()" >Play Introduction</div>
         <h1 id>Music Bingo</h1>
-        <audio preload></audio>
+        <div class="sample-audio">
+			<audio id="sample-audio"></audio>
+		</div>
+		<div><audio id ="jay-audio" preload></audio></div>
       </div>
-      <div id="listing">
-      </div>
+	
+      <!-- <div id="listing">
+      </div> -->
+	  
+	  <div class ="tabs">
+				<ul class="tab-links">
+					<li class="active"><a href="#listing">Songs</a></li>
+					<li><a href="#intermission">Intermission</a></li>
+					<li><a href="#sample">Sample</a></li>
+					<li><a href="#intro">Intro</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="listing" class="tab active"></div>
+					<div id="intermission" class="tab">Intermission Music</div>
+					<div id="sample" class="tab">Sample</div>
+					<div id="intro" class="tab">Intro</div>
+				</div>
+	   </div>
     </div>
   </body>
 </html>
