@@ -1,3 +1,6 @@
+/*******************
+* Author: Jay Huang
+********************/
 body {
   margin: 0;
   font-family: sans-serif;
@@ -10,11 +13,7 @@ body {
   width: 100%;
   margin: 0 auto;
   background-color: white;
-  padding-bottom: 5px;
-  border-bottom: 1px black solid;
-}
-.fixedplayer h1 {
-  display: none;
+  padding-bottom: 10px;
 }
 
 a {
@@ -33,6 +32,15 @@ a {
   }
 }
 
+#player {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  padding-bottom: 10px;
+}
 #player h1 {
   text-align: center;
   font-size: 1.2em;
@@ -65,13 +73,20 @@ a {
   background-color: #58faac;
 }
 
-#listing {
+.letters {
+  float: left;
+  width: 16%;
+  margin: 10px;
   text-align: center;
 }
 
 #holdBingo {
+  text-align: center;
   display: inline-block;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottem: 10px;
+  padding-right: 10px;
+  padding-left: 200px;
 }
 
 label {
@@ -85,10 +100,55 @@ label {
   background-color: #f78181;
 }
 
+#listing {
+  position: relative;
+  top: 130px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 ol {
   padding: 0px;
+  margin-top: 0px;
   list-style: decimal-leading-zero inside;
   font-size: 0.9em;
+}
+ol .columnlabel {
+  display: inline-block;
+  text-align: center;
+  background-color: #a9d0f5;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  line-height: 40px;
+  font-weight: bold;
+  margin: 0 2px;
+}
+ol .columnlabel .colplayedcount {
+  display: inline-block;
+  background-color: #58faac;
+  color: black;
+  width: auto;
+  float: right;
+  height: 30px;
+  padding: 0 5px;
+  margin: 5px 5px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 30px;
+}
+ol .columnlabelfixed {
+  position: fixed;
+  height: 30px;
+  line-height: 30px;
+}
+ol .columnlabelfixed .colplayedcount {
+  height: 20px;
+  line-height: 20px;
 }
 ol .col {
   max-width: 20%;
@@ -103,7 +163,14 @@ ol li {
   display: block;
   margin: 5px 2px;
 }
+@media only screen and (max-device-width: 1280px) {
+  ol li {
+    font-size: 1.5em;
+    height: 80px;
+  }
+}
 ol li a {
+  text-transform: uppercase;
   padding: 10px 15px 0px;
   display: block;
   cursor: pointer;
@@ -111,17 +178,18 @@ ol li a {
   overflow: hidden;
   white-space: nowrap;
 }
-ol li.played {
-  color: #666666;
-  background-color: #cccccc;
-}
 ol li:hover {
   color: black;
   background-color: #cccccc;
 }
+ol li.played {
+  color: #666666;
+  background-color: #f78181;
+}
 ol li.playing {
   color: black;
   background-color: #58faac;
+  font-weight: bold;
 }
 ol li.queued {
   background-color: #f3f781;

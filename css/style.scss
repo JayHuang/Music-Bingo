@@ -1,9 +1,12 @@
-
+/*******************
+* Author: Jay Huang
+********************/
 @import "compass";
 
 $black: #000;
 $white: #FFF;
 $pink: #F78181;
+$blue: #A9D0F5;
 $yellow: #F3F781;
 $green: #58FAAC;
 $dark-grey: #666; 
@@ -11,10 +14,19 @@ $grey: #888;
 $lighter-grey: #CCC;
 $lightest-grey: #EEE;
 
-@mixin hide-text{
+@mixin hide-text() {
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
+}
+
+@mixin un-selectable() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @mixin breakpoint($bp) {
@@ -41,10 +53,9 @@ body {
   width: 100%;
   margin: 0 auto;
   background-color: $white;
-  padding-bottom: 5px;
-  border-bottom: 1px $black solid;
+  padding-bottom: 10px;
   h1 {
-    display: none;
+    // display: none;
   }
 }
 
@@ -63,6 +74,13 @@ a {
 }
 
 #player { 
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $white;
+  padding-bottom: 10px;
   h1 {
     text-align: center;
     font-size: 1.2em;
@@ -94,17 +112,24 @@ a {
     background-color: $green;
 }
  
-#listing {
+.letters {
+    float: left;
+    width: 16%;
+    margin: 10px;
     text-align:center;
 }
  
 #holdBingo {
+	text-align: center;
     display: inline-block;
-    padding: 10px;
+    padding-top: 10px;
+	padding-bottem: 10px;
+	padding-right: 10px;
+	padding-left: 200px;
 }
-
+ 
 label {
-	cursor:pointer;
+    cursor:pointer;
 }
 
 #resetsongs {
@@ -114,10 +139,53 @@ label {
   background-color: $pink;
 }
 
+#listing {
+	position: relative;
+    top: 130px;
+	@include un-selectable();
+}
+
 ol {
   padding: 0px;
+  margin-top: 0px;
   list-style: decimal-leading-zero inside;
   font-size: 0.9em;
+  
+  .columnlabel {
+    display: inline-block;
+    text-align: center;
+    background-color: $blue;
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    font-weight: bold;
+    margin: 0 2px;
+
+    .colplayedcount {
+      display: inline-block;
+      background-color: $green;
+      color: $black;
+      width: auto;
+      float: right;
+      height: 30px;
+      padding: 0 5px;
+      margin: 5px 5px;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 30px;
+    }
+  }
+
+  .columnlabelfixed {
+    position: fixed;
+    height: 30px;
+    line-height: 30px;
+    .colplayedcount {
+      height: 20px;
+      line-height: 20px;
+    }
+  }
 
   .col {
     max-width: 20%;
@@ -132,7 +200,14 @@ ol {
     height: 40px;
     display: block;
     margin: 5px 2px;
+
+    @media only screen and (max-device-width : 1280px) {
+      font-size: 1.5em;
+      height: 80px;
+    }
+
     a {
+      text-transform: uppercase;
       padding: 10px 15px 0px;
       display: block;
       cursor: pointer;
@@ -141,33 +216,20 @@ ol {
       white-space: nowrap;
     }
     
-    &.played {
-      color: $dark-grey;
-      background-color: $lighter-grey;
-    }
-
     &:hover {
       color: $black;
       background-color: $lighter-grey;
     }
 
+    &.played {
+      color: $dark-grey;
+      background-color: $pink;
+    }
+
     &.playing {
       color: $black;
       background-color: $green;
-    // &:before {
-    //   content: "\266B";
-    //   width: 14px;
-    //   height: 14px;
-    //   padding: 3px;
-    //   line-height: 14px;
-    //   margin: 0px;
-    //   position: absolute;
-    //   left: -24px;
-    //   top: 9px;
-    //   color: #000;
-    //   font-size: 13px;
-    //   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-    // }
+      font-weight: bold;
     }
 
     &.queued {
@@ -199,7 +261,7 @@ ol {
     width: 460px;
     margin: 0px auto;
   }
-  
+
   h1 {
     margin: 0px 0px 6px;
   }

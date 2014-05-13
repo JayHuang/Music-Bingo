@@ -1,5 +1,6 @@
+<!-- Author: Jay Huang -->
 <!DOCTYPE html>
-<html lang="en", ng-app>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
@@ -7,43 +8,52 @@
     <title>Music Bingo</title>
     <meta content="width=device-width, initial-scale=0.6" name="viewport">
     <link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
-    <script src="js/min/angular.min.js"></script>
-	<script src="js/jquery-1.9.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/buttonStyle.css" media="screen">
+    <script src="js/jquery-1.9.0.min.js"></script>
     <script src="audiojs/audio.min.js"></script>
-    <script src="js/songlist2.js"></script>
 	<script src="js/bingoCardInfo.js"></script>
-    <script src="js/player.js"></script>
-    <!-- <script src="js/css3-multi-column.js"></script> -->
   </head>
   <body>
-    <!--<div id="wrapper">
+	<div id="holdScript"><script src="js/games/min/songlist2.min.js"></script></div>
+    <div id="wrapper">
       <div id="player">
-        <div id="resetsongs">Reset</div>
+        <div class="pushButton" id="resetsongs">Reset</div>
+		<div class="pushButton" id="playIntro" onclick="playIntroSample()" >Play Introduction</div>
+		<div class="pushButton" onclick="otherpage()">Bingo Checker</div>
+		<div class="pushButton" onclick="otherpage2()">Settings</div>
         <h1 id>Music Bingo</h1>
-        <audio preload></audio>
+		<div style="display:none">
+			<audio id="sample-audio"></audio>
+		</div>
+        <div><audio id ="jay-audio" preload></audio></div>
       </div>
       <div id="listing">
-      </div>
-    </div>-->
-	<div id="wrapper">
-      <div id="player">
-        <div id="resetsongs">Reset</div>
-		<button type="button" onclick="otherpage()">Click Me!</button>
-		<label><input type="checkbox" name="settings" id="Random" onclick="if(this.checked){RandomChanged()}">Random</label></span>
-		<label><input type="checkbox" name="settings" id="Auto">AutoPlay</label></span>
-        <h1 id>Music Bingo</h1>
-        <audio preload></audio>
-      </div>
-      <div id="listing">
+		<div class="onoffswitch" style="display: none">
+			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Random" onclick="RandomClicked()">
+			<label class="onoffswitch-label" for="Random">
+				<div class="onoffswitch-inner" id="btnRandom"></div>
+				<div class="onoffswitch-switch"></div>
+			</label>
+		</div>
+		<div class="onoffswitch" style="display: none">
+			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Auto">
+			<label class="onoffswitch-label" for="Auto">
+				<div class="onoffswitch-inner" id="btnAutoplay"></div>
+				<div class="onoffswitch-switch"></div>
+			</label>
+		</div>
+		<div class="onoffswitch" style="display: none">
+			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Narrator">
+			<label class="onoffswitch-label" for="Narrator">
+				<div class="onoffswitch-inner" id="btnNarrator"></div>
+				<div class="onoffswitch-switch"></div>
+			</label>
+		</div>
+		<input type="file" accept=".js" />
+
       </div>
     </div>
-<!--     <div id="shortcuts">
-      <div>
-        <h1>Keyboard shortcuts:</h1>
-        <p><em>&rarr;</em> Next track</p>
-        <p><em>&larr;</em> Previous track</p>
-        <p><em>Space</em> Play/pause</p>
-      </div>
-    </div> -->
+    </div>
+	<script src="js/min/player.min.js"></script>
   </body>
 </html>
