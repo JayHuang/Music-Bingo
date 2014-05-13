@@ -45,12 +45,8 @@ $(function() {
   // Create songs listing
   function createListing(){
     var path = 'songs/';
-<<<<<<< HEAD
-	var samplePath ='songs/sample/';
-=======
 	// Danny Lieu
 	var samplePath = 'songs/sample/';
->>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
     var $ol = $('<ol>');
     $(window.songlist.songs).each(function(index, song){
       var link = $("<a>", { 
@@ -58,10 +54,6 @@ $(function() {
         class: 'song'
       })
       .attr('data-src', path + song.file)
-<<<<<<< HEAD
-=======
-	  // Danny Lieu
->>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
 	  .attr('data-sample', samplePath + setSampleSong(song.id))
       .attr('data-playcount', '0')
       .attr('data-songid', song.id)
@@ -231,17 +223,11 @@ $(function() {
   // Load in a track on click
   $("ol").find("li").click(function(e) {
     e.preventDefault();
-<<<<<<< HEAD
     if(!$(this).hasClass('playing')){
 	  updateSampleSong($(this));
       updatePlayedAndPlaying($(this));
       updateQueued();
     }
-=======
-	updateSampleSong($(this));
-    updatePlayedAndPlaying($(this));
-    updateQueued();
->>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
   });
 
   // Set the first listing to playing
@@ -260,19 +246,12 @@ $(function() {
       if(!$next.length) $next = $('ol li').not('.played').first(); // Last song
     }
     $prev.children('a.song').attr('data-playcount', ++playcount);
-<<<<<<< HEAD
-    $prev.removeClass('playing');
-=======
     $prev.removeClass('playing')
->>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
     $next.addClass('playing');
     updateColumnPlayedCount();
     audio.load($('a', $next).attr('data-src'));
 	if (document.getElementById("Narrator").checked) sampleAudio.play();
-<<<<<<< HEAD
 	else duration = 0;
-=======
->>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
 	if (document.getElementById("Auto").checked) {
 		$prev.addClass('played');
 		setTimeout(function() { audio.play()}, duration);
@@ -282,13 +261,8 @@ $(function() {
   // Update the queued listing
   function updateQueued() {
     var $next = $('.playing').nextAll ('li').not('.played').first();
-<<<<<<< HEAD
-    $('.queued').removeClass('queued');
-    if(document.getElementById("Random").checked){
-=======
 	$('.queued').removeClass('queued');
 	if(document.getElementById("Random").checked){
->>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
 		var length = $('ol div li').not('.played').not('.playing').length;
 		var x1 = Math.floor((Math.random() * length));
 		$('ol div li').not('.played').not('.playing')[x1].classList.add("queued");
@@ -319,7 +293,6 @@ $(function() {
       audio.playPause();
     }
   })
-<<<<<<< HEAD
   
   function createTabs() {
 	$('.tabs .tab-links a').on('click', function(e) {
@@ -334,17 +307,11 @@ $(function() {
   }
   
   function RandomChanged(){
-=======
-});
-
-function RandomChanged(){
->>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
 	var list = $('ol div li').not('.played').not('.playing').length;
 	var x1 = Math.floor((Math.random() * list));
 	$('ol li.playing').removeClass('playing');
 	$('ol div li').not('.played').not('.playing')[x1].classList.add("playing");
 	updateQueued();
-<<<<<<< HEAD
   }
 
   function playIntroSample() {
@@ -352,14 +319,4 @@ function RandomChanged(){
 	var audio = new Audio(path + "intro.wav");
 	audio.play();
   }
-  
 });
-=======
-}
-
-function playIntroSample() {
-	var path = "songs/intro/";
-	var audio = new Audio(path + "intro.wav");
-	audio.play();
-}
->>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
