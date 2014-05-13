@@ -8,7 +8,10 @@
     <title>Music Bingo</title>
     <meta content="width=device-width, initial-scale=0.6" name="viewport">
     <link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
+<<<<<<< HEAD
 	<link rel="stylesheet" type="text/css" href="css/tabStyle.css" media="screen">
+=======
+>>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
 	<link rel="stylesheet" type="text/css" href="css/buttonStyle.css" media="screen">
     <script src="js/jquery-1.9.0.min.js"></script>
     <script src="audiojs/audio.min.js"></script>
@@ -18,6 +21,7 @@
   <body>
     <div id="wrapper">
       <div id="player">
+<<<<<<< HEAD
 			<div id="setting">
 				<div class="onoffswitch">
 					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Random" onclick="if (this.checked) RandomChanged();">
@@ -48,6 +52,38 @@
 			<audio id="sample-audio"></audio>
 		</div>
 		<div><audio id ="jay-audio" preload></audio></div>
+=======
+        <div class="pushButton" id="resetsongs">Reset</div>
+		<div class="pushButton" id="playIntro" onclick="playIntroSample()" >Play Introduction</div>
+		<div class="onoffswitch">
+			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Random" onclick="toggleMode(this)">
+			<label class="onoffswitch-label" for="Random">
+				<div class="onoffswitch-inner" id="btnRandom"></div>
+				<div class="onoffswitch-switch"></div>
+			</label>
+		</div>
+		<div class="onoffswitch">
+			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Auto">
+			<label class="onoffswitch-label" for="Auto">
+				<div class="onoffswitch-inner" id="btnAutoplay"></div>
+				<div class="onoffswitch-switch"></div>
+			</label>
+		</div>
+		<div class="onoffswitch">
+			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Narrator">
+			<label class="onoffswitch-label" for="Narrator">
+				<div class="onoffswitch-inner" id="btnNarrator"></div>
+				<div class="onoffswitch-switch"></div>
+			</label>
+		</div>
+        <h1 id>Music Bingo</h1>
+		<div style="display:none">
+			<audio id="sample-audio"></audio>
+		</div>
+        <div><audio id ="jay-audio" preload></audio></div>
+      </div>
+      <div id="listing">
+>>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
       </div>
 	
       <!-- <div id="listing">
@@ -67,6 +103,7 @@
 					<div id="intro" class="tab">Intro</div>
 				</div>
 	   </div>
+    </div>
     </div>
   </body>
 </html>

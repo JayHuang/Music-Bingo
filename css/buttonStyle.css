@@ -12,16 +12,24 @@
 }
 .onoffswitch-inner {
     width: 200%; margin-left: -100%;
+<<<<<<< HEAD
     -moz-transition: margin 0.3s ease-in 0s; 
 	-webkit-transition: margin 0.3s ease-in 0s;
+=======
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+>>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
     -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
 }
 .onoffswitch-inner:before, .onoffswitch-inner:after {
     float: left; width: 50%; height: 60px; padding: 0; line-height: 60px;
     font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+<<<<<<< HEAD
     -moz-box-sizing: border-box; 
 	-webkit-box-sizing: border-box; 
 	box-sizing: border-box;
+=======
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+>>>>>>> 8933a402446bd5d6d654449f3940640c13ad8b3d
 }
 #btnRandom.onoffswitch-inner:before {
     content: "RANDOM";
