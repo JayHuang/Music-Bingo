@@ -18,7 +18,7 @@ Look for the following line in index.html
 
 And replace `songlist2.js` with the appropriate songlist.  
 
-A demo of the application running can be found at: [jayhuang.org/code/4900](http://jayhuang.org/code/4900)
+A demo of the application running can be found at: [jayhuang.org/code/4900/v2](http://jayhuang.org/code/4900/v2)
 
 
 ###To run the application
